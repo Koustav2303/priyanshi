@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Specially For You</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Montserrat:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <style>
+        /* --- THEME VARIABLES --- */
+        :root {
+            --bg: #fffcf8;
+            --glass: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --accent: #dba5a6;
+            --accent-dark: #b88687;
+            --gold: #cba173;
+            --text-dark: #5a4a4a;
+            --nav-bg: rgba(255, 255, 255, 0.6);
+            --footer-bg: #fff5f5;
+            --player-bg: rgba(255, 255, 255, 0.4);
+        }
+
+        body.dark-mode {
+            --bg: #1a1515;
+            --glass: rgba(40, 35, 35, 0.85);
+            --glass-border: rgba(60, 60, 60, 0.5);
+            --accent: #eeb8b9;
+            --accent-dark: #d49a9b;
+            --text-dark: #e6e0e0;
+            --nav-bg: rgba(20, 20, 20, 0.8);
+            --footer-bg: #241e1e;
+            --player-bg: rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-dark);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* --- BACKGROUND BLOBS --- */
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        body::before {
+            top: -200px;
+            left: -200px;
+            background: var(--accent);
+        }
+
+        body::after {
+            bottom: -200px;
+            right: -200px;
+            background: var(--gold);
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: var(--nav-bg);
+            border-bottom: 1px solid rgba(219, 165, 166, 0.2);
+            transition: 0.3s;
+        }
+
+        .logo {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 1.5rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .logo i {
+            color: var(--accent);
+            animation: beat 1.5s infinite;
+        }
+
+        @keyframes beat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            font-weight: 500;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--nav-bg);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                align-items: center;
+                gap: 0;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease-in-out;
+            }
+
+            .nav-links.active {
+                max-height: 300px;
+            }
+
+            .nav-links a {
+                padding: 20px;
+                width: 100%;
+                text-align: center;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+            }
+
+            .nav-links a:hover {
+                background: rgba(219, 165, 166, 0.1);
+            }
+        }
+
+        /* --- SECTIONS --- */
+        section {
+            min-height: 100vh;
+            padding: 80px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        h2 {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        /* --- HERO --- */
+        #home {
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .kb-slideshow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .kb-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transform: scale(1);
+            animation: kenburns 24s linear infinite;
+        }
+
+        .kb-slide:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .kb-slide:nth-child(2) {
+            animation-delay: 6s;
+        }
+
+        .kb-slide:nth-child(3) {
+            animation-delay: 12s;
+        }
+
+        .kb-slide:nth-child(4) {
+            animation-delay: 18s;
+        }
+
+        .kb-slide:nth-child(5) {
+            animation-delay: 24s;
+        }
+
+        @keyframes kenburns {
+            0% {
+                opacity: 0;
+                transform: scale(1);
+            }
+
+            5% {
+                opacity: 1;
+            }
+
+            25% {
+                opacity: 1;
+            }
+
+            30% {
+                opacity: 0;
+                transform: scale(1.15);
+            }
+
+            100% {
+                opacity: 0;
+                transform: scale(1.15);
+            }
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(60, 40, 40, 0.3);
+            z-index: 0;
+        }
+
+        .home-content {
+            z-index: 2;
+            text-align: center;
+            color: white;
+        }
+
+        .home-content h1 {
+            font-size: 4.5rem;
+            font-family: 'Cinzel Decorative', serif;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* --- ABOUT --- */
+        .about-container {
+            max-width: 700px;
+            background: var(--glass);
+            padding: 50px;
+            border-radius: 30px;
+            border: 2px solid var(--glass-border);
+            backdrop-filter: blur(15px);
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(219, 165, 166, 0.15);
+        }
+
+        .about-container p {
+            font-size: 1.2rem;
+            line-height: 1.9;
+            color: var(--text-dark);
+            font-weight: 400;
+        }
+
+        /* --- GALLERY --- */
+        .swiper {
+            width: 100%;
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            width: 300px;
+            height: 450px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(90, 74, 74, 0.2);
+            border: 4px solid white;
+        }
+
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slide-overlay {
+            position: absolute;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            padding: 25px;
+            background: linear-gradient(to top, rgba(219, 165, 166, 0.95), rgba(219, 165, 166, 0.6));
+            backdrop-filter: blur(5px);
+            color: white;
+            transition: bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .slide-overlay h3 {
+            font-family: 'Cinzel Decorative', serif;
+            color: white;
+            margin-bottom: 8px;
+            font-size: 1.3rem;
+        }
+
+        .swiper-slide:hover .slide-overlay {
+            bottom: 0;
+        }
+
+        /* --- MUSIC PLAYER SECTION --- */
+        #music-section {
+            background: radial-gradient(circle at center, rgba(219, 165, 166, 0.1) 0%, transparent 70%);
+        }
+
+        .music-wrapper {
+            display: flex;
+            flex-direction: row;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            width: 95%;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .player-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            min-width: 300px;
+        }
+
+        .disk-container {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            margin-bottom: 25px;
+        }
+
+        .disk {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--bg);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: rotateRecord 20s linear infinite;
+            animation-play-state: paused;
+        }
+
+        .disk.playing {
+            animation-play-state: running;
+        }
+
+        .disk-container::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: var(--bg);
+            border-radius: 50%;
+            z-index: 2;
+            border: 2px solid var(--accent);
+        }
+
+        @keyframes rotateRecord {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .song-info h3 {
+            font-family: 'Cinzel Decorative', serif;
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .song-info p {
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+
+        .progress-container {
+            width: 100%;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.8rem;
+            color: var(--text-dark);
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 6px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        body.dark-mode .progress-bar {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 10px;
+            width: 0%;
+            position: relative;
+            transition: width 0.1s linear;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            right: -5px;
+            top: -3px;
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .progress-bar:hover .progress-fill::after {
+            opacity: 1;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .btn-control {
+            background: none;
+            border: none;
+            color: var(--text-dark);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-control:hover {
+            color: var(--accent);
+            transform: scale(1.1);
+        }
+
+        .btn-play {
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            color: white !important;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 5px 15px rgba(219, 165, 166, 0.4);
+        }
+
+        .btn-play:hover {
+            background: var(--accent-dark);
+            box-shadow: 0 5px 20px rgba(219, 165, 166, 0.6);
+            color: white;
+        }
+
+        .volume-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 80%;
+            color: var(--text-dark);
+        }
+
+        .volume-slider {
+            flex: 1;
+            -webkit-appearance: none;
+            height: 4px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            outline: none;
+        }
+
+        body.dark-mode .volume-slider {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            background: var(--accent);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        /* --- RIGHT SIDE: PLAYLIST --- */
+        .playlist-side {
+            flex: 1;
+            height: 400px;
+            overflow-y: auto;
+            padding-right: 10px;
+            border-left: 1px solid rgba(0, 0, 0, 0.05);
+            padding-left: 30px;
+        }
+
+        body.dark-mode .playlist-side {
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Desktop Scrollbar Styling */
+        @media (min-width: 901px) {
+            .playlist-side::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            .playlist-side::-webkit-scrollbar-track {
+                background: transparent;
+            }
+
+            .playlist-side::-webkit-scrollbar-thumb {
+                background: transparent;
+                border-radius: 10px;
+            }
+
+            .playlist-side:hover::-webkit-scrollbar-thumb {
+                background: var(--accent);
+            }
+        }
+
+        .playlist-header {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        .song-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        body.dark-mode .song-item {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .song-item:hover {
+            background: rgba(219, 165, 166, 0.2);
+            transform: translateX(5px);
+        }
+
+        .song-item.active {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 5px 15px rgba(219, 165, 166, 0.3);
+        }
+
+        .song-item.active p,
+        .song-item.active span {
+            color: white;
+        }
+
+        .song-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .song-details {
+            flex: 1;
+        }
+
+        .song-title {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-dark);
+            display: block;
+        }
+
+        .song-artist {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            color: var(--text-dark);
+        }
+
+        .music-bars-animation {
+            display: flex;
+            gap: 3px;
+            height: 20px;
+            align-items: flex-end;
+            opacity: 0;
+        }
+
+        .song-item.active .music-bars-animation {
+            opacity: 1;
+        }
+
+        .bar {
+            width: 4px;
+            background: white;
+            animation: bounce 1s infinite ease-in-out;
+        }
+
+        .bar:nth-child(1) {
+            animation-delay: 0.1s;
+            height: 10px;
+        }
+
+        .bar:nth-child(2) {
+            animation-delay: 0.3s;
+            height: 15px;
+        }
+
+        .bar:nth-child(3) {
+            animation-delay: 0.5s;
+            height: 8px;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: scaleY(1);
+            }
+
+            50% {
+                transform: scaleY(1.5);
+            }
+        }
+
+        /* --- RESPONSIVE PLAYER --- */
+        @media(max-width: 900px) {
+            .music-wrapper {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .playlist-side {
+                width: 100%;
+                border-left: none;
+                border-top: 1px solid rgba(0, 0, 0, 0.05);
+                padding-left: 0;
+                padding-top: 20px;
+                /* FIXED HEIGHT FOR MOBILE: This fits approx 3 songs */
+                height: 240px;
+                /* Force vertical scroll */
+                overflow-y: scroll;
+            }
+
+            /* FORCE SCROLLBAR ON MOBILE */
+            .playlist-side::-webkit-scrollbar {
+                width: 6px;
+                display: block;
+                /* Forces it to show */
+            }
+
+            .playlist-side::-webkit-scrollbar-track {
+                background: rgba(0, 0, 0, 0.05);
+            }
+
+            .playlist-side::-webkit-scrollbar-thumb {
+                background: var(--accent);
+                /* Pink Color */
+                border-radius: 10px;
+            }
+        }
+
+        @media(max-width: 768px) {
+            .swiper-slide {
+                width: 260px;
+                height: 380px;
+            }
+
+            h2 {
+                font-size: 2.5rem;
+            }
+
+            .home-content h1 {
+                font-size: 3.5rem;
+            }
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 50px 20px;
+            text-align: center;
+            background: var(--footer-bg);
+            color: var(--text-dark);
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-signature {
+            font-family: 'Cinzel Decorative', serif;
+            margin-top: 20px;
+            font-size: 1.1rem;
+            color: var(--accent);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 55px;
+            height: 55px;
+            background: var(--bg);
+            color: var(--accent);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 999;
+            font-size: 1.3rem;
+            transition: 0.3s;
+            border: 2px solid var(--accent);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            background: var(--accent);
+            color: var(--bg);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">
+            <i class="fas fa-heart"></i> Priyanshi
+        </div>
+
+        <div class="hamburger" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <div class="nav-links" id="navLinks">
+            <a href="#home">Home</a>
+            <a href="#about">About Her</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#music-section">Melody</a>
+        </div>
+    </nav>
+
+    <section id="home">
+        <div class="kb-slideshow">
+            <div class="kb-slide" style="background-image: url('image1.jpg');"></div>
+            <div class="kb-slide" style="background-image: url('image2.jpg');"></div>
+            <div class="kb-slide" style="background-image: url('image3.jpg');"></div>
+            <div class="kb-slide" style="background-image: url('image4.jpg');"></div>
+            <div class="kb-slide" style="background-image: url('image8.jpg');"></div>
+        </div>
+
+        <div class="overlay"></div>
+
+        <div class="home-content">
+            <h1>Hey Beautiful,</h1>
+            <p style="letter-spacing: 3px; text-transform: uppercase;">Welcome to your digital garden</p>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>About You</h2>
+        <div class="about-container">
+            <p>
+                "Life often feels like chaos—a loop of random errors and noise. But you? You are the perfect algorithm.
+                You bring order and logic to my day just by smiling.
+                <br><br>
+                I built this little digital corner because a simple photo gallery wasn't enough to hold your elegance. I
+                wanted to create a space that is as unique as you are. Keep shining, because you light up this world
+                effortlessly."
+            </p>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <h2>Your Memories</h2>
+
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="image1.jpg" alt="Her">
+                    <div class="slide-overlay">
+                        <h3>Grace in Silence</h3>
+                        <p>Some beauty doesn’t ask to be seen — it’s simply felt.</p>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="image2.jpg" alt="Her">
+                    <div class="slide-overlay">
+                        <h3>Eyes That Speak</h3>
+                        <p>In your eyes, even silence feels meaningful</p>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="image3.jpg" alt="Her">
+                    <div class="slide-overlay">
+                        <h3>Timeless Charm</h3>
+                        <p>Tradition looks even more beautiful when you wear it.</p>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="image4.jpg" alt="Her">
+                    <div class="slide-overlay">
+                        <h3>Quiet Devotion</h3>
+                        <p>There’s poetry in the way you look down and smile.</p>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="image5.jpg" alt="Her">
+                    <div class="slide-overlay">
+                        <h3>Lost in Thoughts</h3>
+                        <p>Some moments feel calm… because you exist in them.</p>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="image6.jpg" alt="Her">
+                    <div class="slide-overlay">
+                        <h3>Unsaid Stories</h3>
+                        <p>I wonder what thoughts make your eyes wander like that</p>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="image7.jpg" alt="Her">
+                    <div class="slide-overlay">
+                        <h3>Just You</h3>
+                        <p>No filters. No words. Just you — and that’s enough.</p>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="image8.jpg" alt="Her">
+                    <div class="slide-overlay">
+                        <h3>Effortless Grace</h3>
+                        <p>You make looking beautiful seem so easy.</p>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="image9.jpg" alt="Her">
+                    <div class="slide-overlay">
+                        <h3>Lady in Red</h3>
+                        <p>You define what radiance truly means.</p>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="image10.jpg" alt="Her">
+                    <div class="slide-overlay">
+                        <h3>Perfect Angle</h3>
+                        <p>You are beautiful from every side, even when you aren't trying.</p>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="image11.jpg" alt="Her">
+                    <div class="slide-overlay">
+                        <h3>Captivating</h3>
+                        <p>Just one look from you is enough to make my day.</p>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="image12.jpg" alt="Her">
+                    <div class="slide-overlay">
+                        <h3>Daydreamer</h3>
+                        <p>I wonder what you're thinking about... I hope it's something beautiful.</p>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="image13.jpg" alt="Her">
+                    <div class="slide-overlay">
+                        <h3>Mesmerizing</h3>
+                        <p>I could get lost in your eyes and never want to be found.</p>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="image14.jpg" alt="Her">
+                    <div class="slide-overlay">
+                        <h3>That Spark</h3>
+                        <p>Never lose that mischievous spark in your eyes.</p>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="image15.jpg" alt="Her">
+                    <div class="slide-overlay">
+                        <h3>Just You</h3>
+                        <p>The closer I look, the more reasons I find to adore you.</p>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="image16.jpg" alt="Her">
+                    <div class="slide-overlay">
+                        <h3>Shades of Beauty</h3>
+                        <p>Hiding those pretty eyes, but that smile gives it away.</p>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="image17.jpg" alt="Her">
+                    <div class="slide-overlay">
+                        <h3>The Glow</h3>
+                        <p>The lantern lights up the night, but you light up my world.</p>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="image18.jpg" alt="Her">
+                    <div class="slide-overlay">
+                        <h3>Serenity</h3>
+                        <p>A quiet moment of beauty that speaks volumes.</p>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="image20.jpg" alt="Her">
+                    <div class="slide-overlay">
+                        <h3>Life in Color</h3>
+                        <p>You shine brighter than all the flowers behind you.</p>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="image21.jpg" alt="Her">
+                    <div class="slide-overlay">
+                        <h3>Natural Beauty</h3>
+                        <p>Surrounded by nature, but you are the prettiest view here.</p>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="image22.jpg" alt="Her">
+                    <div class="slide-overlay">
+                        <h3>Chic & Confident</h3>
+                        <p>You’ve got a style that is all your own.</p>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="image23.jpg" alt="Her">
+                    <div class="slide-overlay">
+                        <h3>Caught in the Moment</h3>
+                        <p>No pose needed. Just natural beauty.</p>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="image24.jpg" alt="Her">
+                    <div class="slide-overlay">
+                        <h3>Perfection</h3>
+                        <p>The most beautiful view is right here.</p>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <img src="image25.jpg" alt="Her">
+                    <div class="slide-overlay">
+                        <h3>Divine Beauty</h3>
+                        <p>You look just as captivating as the celebration around you.</p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
+
+    <section id="music-section">
+        <h2>Tracks For You</h2>
+
+        <div class="music-wrapper">
+            <div class="player-main">
+                <div class="disk-container">
+                    <img src="image1.jpg" alt="Album Art" class="disk" id="currAlbum">
+                </div>
+
+                <div class="song-info">
+                    <h3 id="currTitle">Song Title</h3>
+                    <p id="currArtist">Artist Name</p>
+                </div>
+
+                <div class="progress-container">
+                    <span id="currTime">0:00</span>
+                    <div class="progress-bar" id="progressBar" onclick="setProgress(event)">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <span id="durTime">0:00</span>
+                </div>
+
+                <div class="controls">
+                    <button class="btn-control" onclick="prevSong()"><i class="fas fa-backward"></i></button>
+                    <button class="btn-control btn-play" onclick="togglePlay()" id="playBtn"><i
+                            class="fas fa-play"></i></button>
+                    <button class="btn-control" onclick="nextSong()"><i class="fas fa-forward"></i></button>
+                </div>
+
+                <div class="volume-container">
+                    <i class="fas fa-volume-down"></i>
+                    <input type="range" min="0" max="1" step="0.05" value="0.8" class="volume-slider"
+                        onchange="setVolume(this.value)">
+                    <i class="fas fa-volume-up"></i>
+                </div>
+            </div>
+
+            <div class="playlist-side" id="playlist">
+                <div class="playlist-header">Playlist</div>
+            </div>
+        </div>
+
+        <audio id="audio" src=""></audio>
+    </section>
+
+    <footer>
+        <p>Code is usually just logic and math. But this project? This one was written entirely with heart.</p>
+        <div class="footer-signature">
+            ~ Newton
+        </div>
+    </footer>
+
+    <div class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        // --- MOBILE MENU LOGIC ---
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.querySelector('.hamburger i');
+            navLinks.classList.toggle('active');
+
+            if (navLinks.classList.contains('active')) {
+                hamburger.classList.remove('fa-bars');
+                hamburger.classList.add('fa-times');
+            } else {
+                hamburger.classList.remove('fa-times');
+                hamburger.classList.add('fa-bars');
+            }
+        }
+
+        // Auto-close menu when a link is clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                const navLinks = document.getElementById('navLinks');
+                const hamburger = document.querySelector('.hamburger i');
+
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    hamburger.classList.remove('fa-times');
+                    hamburger.classList.add('fa-bars');
+                }
+            });
+        });
+
+        // --- SWIPER JS ---
+        var swiper = new Swiper(".mySwiper", {
+            effect: "coverflow",
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: "auto",
+            coverflowEffect: {
+                rotate: 35,
+                stretch: 0,
+                depth: 100,
+                modifier: 1,
+                slideShadows: true,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+            },
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            }
+        });
+
+        // --- THEME TOGGLE JS ---
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.querySelector('.theme-toggle i');
+
+            body.classList.toggle('dark-mode');
+
+            if (body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        }
+
+        // --- MUSIC PLAYER JS ---
+        const songs = [
+            {
+                title: "Perfect",
+                artist: "Ed Sheeran",
+                img: "image1.jpg",
+                src: "songs/music1.mp3"
+            },
+            {
+                title: "Thousand Years",
+                artist: "Christina Perri",
+                img: "image2.jpg",
+                src: "songs/music2.mp3"
+            },
+            {
+                title: "All of Me",
+                artist: "John Legend",
+                img: "image3.jpg",
+                src: "songs/music3.mp3"
+            },
+            {
+                title: "Just The Way You Are",
+                artist: "Bruno Mars",
+                img: "image4.jpg",
+                src: "songs/music4.mp3"
+            },
+            {
+                title: "Thinking Out Loud",
+                artist: "Ed Sheeran",
+                img: "image5.jpg",
+                src: "songs/music5.mp3"
+            },
+            {
+                title: "At My Worst",
+                artist: "Pink Sweat$",
+                img: "image6.jpg",
+                src: "songs/music6.mp3"
+            },
+            {
+                title: "Until I Found You",
+                artist: "Stephen Sanchez",
+                img: "image7.jpg",
+                src: "songs/music7.mp3"
+            },
+            {
+                title: "Uden Jab Jab Julfe Teri",
+                artist: "Vicky Singh",
+                img: "image8.jpg",
+                src: "songs/music8.mp3"
+            }
+        ];
+
+        const audio = document.getElementById('audio');
+        const playBtn = document.getElementById('playBtn');
+        const playIcon = playBtn.querySelector('i');
+        const title = document.getElementById('currTitle');
+        const artist = document.getElementById('currArtist');
+        const cover = document.getElementById('currAlbum');
+        const progressFill = document.getElementById('progressFill');
+        const currTimeEl = document.getElementById('currTime');
+        const durTimeEl = document.getElementById('durTime');
+        const playlistDiv = document.getElementById('playlist');
+
+        let songIndex = 0;
+
+        function loadSong(song) {
+            title.innerText = song.title;
+            artist.innerText = song.artist;
+            cover.src = song.img;
+            audio.src = song.src;
+            renderPlaylist();
+        }
+
+        function playSong() {
+            document.querySelector('.music-wrapper').classList.add('play');
+            playIcon.classList.remove('fa-play');
+            playIcon.classList.add('fa-pause');
+            cover.classList.add('playing');
+            audio.play();
+            renderPlaylist();
+        }
+
+        function pauseSong() {
+            document.querySelector('.music-wrapper').classList.remove('play');
+            playIcon.classList.remove('fa-pause');
+            playIcon.classList.add('fa-play');
+            cover.classList.remove('playing');
+            audio.pause();
+            renderPlaylist();
+        }
+
+        function togglePlay() {
+            const isPlaying = playIcon.classList.contains('fa-pause');
+            if (isPlaying) {
+                pauseSong();
+            } else {
+                playSong();
+            }
+        }
+
+        function prevSong() {
+            songIndex--;
+            if (songIndex < 0) {
+                songIndex = songs.length - 1;
+            }
+            loadSong(songs[songIndex]);
+            playSong();
+        }
+
+        function nextSong() {
+            songIndex++;
+            if (songIndex > songs.length - 1) {
+                songIndex = 0;
+            }
+            loadSong(songs[songIndex]);
+            playSong();
+        }
+
+        function updateProgress(e) {
+            const { duration, currentTime } = e.srcElement;
+            const progressPercent = (currentTime / duration) * 100;
+            progressFill.style.width = `${progressPercent}%`;
+            const formatTime = (time) => {
+                const min = Math.floor(time / 60);
+                let sec = Math.floor(time % 60);
+                if (sec < 10) sec = `0${sec}`;
+                return `${min}:${sec}`;
+            };
+            if (duration) {
+                currTimeEl.innerText = formatTime(currentTime);
+                durTimeEl.innerText = formatTime(duration);
+            }
+        }
+
+        function setProgress(e) {
+            const width = document.getElementById('progressBar').clientWidth;
+            const clickX = e.offsetX;
+            const duration = audio.duration;
+            audio.currentTime = (clickX / width) * duration;
+        }
+
+        function setVolume(val) {
+            audio.volume = val;
+        }
+
+        function renderPlaylist() {
+            playlistDiv.innerHTML = '<div class="playlist-header">Playlist</div>';
+            songs.forEach((song, index) => {
+                const item = document.createElement('div');
+                item.classList.add('song-item');
+                if (index === songIndex) {
+                    item.classList.add('active');
+                }
+                item.innerHTML = `
+                    <img src="${song.img}" alt="Thumb">
+                    <div class="song-details">
+                        <span class="song-title">${song.title}</span>
+                        <span class="song-artist">${song.artist}</span>
+                    </div>
+                    <div class="music-bars-animation">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
+                `;
+                item.addEventListener('click', () => {
+                    songIndex = index;
+                    loadSong(songs[songIndex]);
+                    playSong();
+                });
+                playlistDiv.appendChild(item);
+            });
+        }
+
+        audio.addEventListener('timeupdate', updateProgress);
+        audio.addEventListener('ended', nextSong);
+        loadSong(songs[songIndex]);
+    </script>
+</body>
+
+</html>
