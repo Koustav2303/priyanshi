@@ -758,17 +758,25 @@
                 border-top: 1px solid rgba(0, 0, 0, 0.05);
                 padding-left: 0;
                 padding-top: 20px;
-                /* FIXED HEIGHT FOR MOBILE: This fits approx 3 songs */
-                height: 240px;
-                /* Force vertical scroll */
-                overflow-y: scroll;
+
+                /* --- SCROLL FIX START --- */
+                display: block;
+                /* Ensures it acts as a block element */
+                flex: none;
+                /* Prevents it from stretching via Flexbox rules */
+                height: 300px;
+                /* The fixed window size for the playlist */
+                overflow-y: auto;
+                /* Enables the vertical scrollbar */
+                scroll-behavior: smooth;
+                /* --- SCROLL FIX END --- */
             }
 
-            /* FORCE SCROLLBAR ON MOBILE */
+            /* FORCE SCROLLBAR VISIBILITY ON MOBILE */
             .playlist-side::-webkit-scrollbar {
-                width: 6px;
+                width: 5px;
+                /* Slightly thinner for mobile */
                 display: block;
-                /* Forces it to show */
             }
 
             .playlist-side::-webkit-scrollbar-track {
@@ -777,23 +785,7 @@
 
             .playlist-side::-webkit-scrollbar-thumb {
                 background: var(--accent);
-                /* Pink Color */
                 border-radius: 10px;
-            }
-        }
-
-        @media(max-width: 768px) {
-            .swiper-slide {
-                width: 260px;
-                height: 380px;
-            }
-
-            h2 {
-                font-size: 2.5rem;
-            }
-
-            .home-content h1 {
-                font-size: 3.5rem;
             }
         }
 
