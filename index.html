@@ -1572,6 +1572,204 @@
                 font-size: 2rem;
             }
         }
+
+        /* --- DREAM TICKET SECTION --- */
+        #dream-section {
+            padding-bottom: 80px;
+        }
+
+        .ticket-container {
+            perspective: 1000px;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .ticket {
+            display: flex;
+            width: 100%;
+            max-width: 750px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.5s ease;
+            position: relative;
+        }
+
+        /* Hover Effect: 3D Tilt */
+        .ticket:hover {
+            transform: rotateX(5deg) rotateY(5deg) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+        /* --- LEFT SIDE (Main) --- */
+        .ticket-left {
+            flex: 2;
+            padding: 30px;
+            border-right: 2px dashed #ddd; /* The tear-off line */
+            position: relative;
+        }
+
+        /* Cutout circles for realism */
+        .ticket-left::before, .ticket-left::after {
+            content: '';
+            position: absolute;
+            right: -10px;
+            width: 20px;
+            height: 20px;
+            background: var(--bg); /* Matches page background */
+            border-radius: 50%;
+        }
+        .ticket-left::before { top: -10px; }
+        .ticket-left::after { bottom: -10px; }
+
+        .ticket-header {
+            display: flex;
+            justify-content: space-between;
+            color: var(--accent);
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+        }
+
+        .route {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .city h3 {
+            font-size: 2.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        .city p {
+            font-size: 0.9rem;
+            opacity: 0.6;
+            text-transform: uppercase;
+        }
+
+        .plane-icon {
+            flex: 1;
+            text-align: center;
+            color: var(--accent);
+            position: relative;
+            margin: 0 20px;
+        }
+
+        .plane-icon i {
+            font-size: 1.5rem;
+            background: white;
+            padding: 0 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .dotted-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            border-bottom: 2px dotted #ddd;
+            z-index: 0;
+        }
+
+        .ticket-details {
+            display: flex;
+            justify-content: space-between;
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail-item span {
+            font-size: 0.7rem;
+            color: #888;
+            letter-spacing: 1px;
+        }
+
+        .detail-item strong {
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        /* --- RIGHT SIDE (Stub) --- */
+        .ticket-right {
+            flex: 1;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: white;
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .nurse-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .confirmed {
+            background: white;
+            color: var(--accent);
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            transform: rotate(-5deg);
+            border: 2px solid white;
+            margin: 10px 0;
+            display: inline-block;
+        }
+
+        .barcode {
+            font-family: 'Libre Barcode 39', cursive; /* Fallback if no font */
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            opacity: 0.7;
+            margin: 15px 0;
+        }
+        
+        .cheer-text {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        /* --- MOBILE RESPONSIVE TICKET --- */
+        @media (max-width: 768px) {
+            .ticket {
+                flex-direction: column;
+            }
+
+            .ticket-left {
+                border-right: none;
+                border-bottom: 2px dashed #ddd;
+            }
+
+            .ticket-left::before { top: auto; bottom: -10px; left: -10px; }
+            .ticket-left::after { top: auto; bottom: -10px; right: -10px; left: auto;}
+            
+            .ticket-right {
+                padding: 20px;
+            }
+
+            .city h3 {
+                font-size: 1.8rem;
+            }
+        }
     </style>
 </head>
 
@@ -2064,6 +2262,64 @@
                     magnetic.</p>
             </div>
 
+        </div>
+    </section>
+
+    <section id="dream-section">
+        <h2>Your Next Destination</h2>
+        <div class="ticket-container">
+            <div class="ticket">
+                
+                <div class="ticket-left">
+                    <div class="ticket-header">
+                        <span>DREAM AIRLINES</span>
+                        <i class="fas fa-plane"></i>
+                    </div>
+                    
+                    <div class="route">
+                        <div class="city">
+                            <h3>NOW</h3>
+                            <p>Hard Work</p>
+                        </div>
+                        <div class="plane-icon">
+                            <i class="fas fa-plane-departure"></i>
+                            <div class="dotted-line"></div>
+                        </div>
+                        <div class="city">
+                            <h3>LDN</h3>
+                            <p>London, UK</p>
+                        </div>
+                    </div>
+
+                    <div class="ticket-details">
+                        <div class="detail-item">
+                            <span>PASSENGER</span>
+                            <strong>Future Nurse Priyanshi</strong>
+                        </div>
+                        <div class="detail-item">
+                            <span>CLASS</span>
+                            <strong>First Class</strong>
+                        </div>
+                        <div class="detail-item">
+                            <span>DATE</span>
+                            <strong>Someday Soon</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ticket-right">
+                    <div class="stub-content">
+                        <i class="fas fa-user-nurse nurse-icon"></i>
+                        <p>Ticket Status:</p>
+                        <h3 class="confirmed">CONFIRMED</h3>
+                        <div class="barcode">
+                            |||| ||| ||||| || ||||
+                        </div>
+                        <p class="cheer-text">The world is waiting for a nurse like you.</p>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
 
