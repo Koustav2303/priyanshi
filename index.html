@@ -15,9 +15,7 @@
 
 
     <link
-
         href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Montserrat:wght@300;400;500;600&display=swap"
-
         rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -26,12 +24,13 @@
 
 
 
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Montserrat:wght@300;400;500;600&family=Indie+Flower&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Montserrat:wght@300;400;500;600&family=Indie+Flower&display=swap"
+        rel="stylesheet">
 
 
 
     <style>
-
         /* --- THEME VARIABLES --- */
 
         :root {
@@ -392,7 +391,7 @@
 
                 /* INCREASED HEIGHT TO FIT ALL NEW LINKS */
 
-                max-height: 450px; 
+                max-height: 450px;
 
             }
 
@@ -1888,7 +1887,8 @@
 
             box-sizing: border-box;
 
-            opacity: 0; /* Hidden initially for animation */
+            opacity: 0;
+            /* Hidden initially for animation */
 
             transform: translateY(50px);
 
@@ -1978,7 +1978,7 @@
 
             backdrop-filter: blur(10px);
 
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
 
             text-align: left;
 
@@ -2030,7 +2030,8 @@
 
             .timeline-container::after {
 
-                left: 30px; /* Move line to the left side */
+                left: 30px;
+                /* Move line to the left side */
 
             }
 
@@ -2050,7 +2051,8 @@
 
             .timeline-item::after {
 
-                left: 20px; /* Move dot to the line */
+                left: 20px;
+                /* Move dot to the line */
 
             }
 
@@ -2070,7 +2072,8 @@
 
         #notes {
 
-            background-color: transparent; /* Blends with your background */
+            background-color: transparent;
+            /* Blends with your background */
 
         }
 
@@ -2104,7 +2107,7 @@
 
             box-sizing: border-box;
 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 
             display: flex;
 
@@ -2132,7 +2135,8 @@
 
             font-size: 1.3rem;
 
-            color: #4a4a4a; /* Dark gray text looks like pencil/ink */
+            color: #4a4a4a;
+            /* Dark gray text looks like pencil/ink */
 
             line-height: 1.4;
 
@@ -2146,11 +2150,12 @@
 
         .note:hover {
 
-            transform: scale(1.1) rotate(0deg) !important; /* !important overrides the random rotation */
+            transform: scale(1.1) rotate(0deg) !important;
+            /* !important overrides the random rotation */
 
             z-index: 10;
 
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 
         }
 
@@ -2214,7 +2219,7 @@
 
             font-size: 1.5rem;
 
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 
         }
 
@@ -2242,7 +2247,8 @@
 
         body.dark-mode .note {
 
-            opacity: 0.9; /* Dims them slightly so they aren't blinding in dark mode */
+            opacity: 0.9;
+            /* Dims them slightly so they aren't blinding in dark mode */
 
         }
 
@@ -2284,11 +2290,12 @@
 
             height: 100%;
 
-            background: #f0e6d2; /* Creamy paper color */
+            background: #f0e6d2;
+            /* Creamy paper color */
 
             border-radius: 5px;
 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 
         }
 
@@ -2312,7 +2319,8 @@
 
             border-right: 150px solid transparent;
 
-            border-top: 110px solid var(--accent-dark); /* Darker pink for contrast */
+            border-top: 110px solid var(--accent-dark);
+            /* Darker pink for contrast */
 
             transform-origin: top;
 
@@ -2342,7 +2350,8 @@
 
             border-right: 150px solid transparent;
 
-            border-bottom: 120px solid var(--accent); /* Main pink color */
+            border-bottom: 120px solid var(--accent);
+            /* Main pink color */
 
             z-index: 4;
 
@@ -2372,9 +2381,10 @@
 
             transition: 0.6s;
 
-            z-index: 1; /* Hidden inside initially */
+            z-index: 1;
+            /* Hidden inside initially */
 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 
             overflow: hidden;
 
@@ -2390,7 +2400,8 @@
 
         .letter-text {
 
-            font-family: 'Indie Flower', cursive; /* Handwritten font */
+            font-family: 'Indie Flower', cursive;
+            /* Handwritten font */
 
             font-size: 1rem;
 
@@ -2398,7 +2409,8 @@
 
             text-align: center;
 
-            opacity: 0; /* Text hidden until opened */
+            opacity: 0;
+            /* Text hidden until opened */
 
             transition: 0.3s;
 
@@ -2438,7 +2450,7 @@
 
         /* --- OPEN STATE ANIMATIONS --- */
 
-        
+
 
         /* 1. Flap opens 180 degrees */
 
@@ -2446,7 +2458,8 @@
 
             transform: rotateX(180deg);
 
-            z-index: 1; /* Moves behind the paper */
+            z-index: 1;
+            /* Moves behind the paper */
 
         }
 
@@ -2456,11 +2469,14 @@
 
         .letter-container.open .envelope-paper {
 
-            transform: translateY(-100px); /* Slides up out of envelope */
+            transform: translateY(-100px);
+            /* Slides up out of envelope */
 
-            z-index: 3; /* Moves in front of the flap but behind the bottom pocket */
+            z-index: 3;
+            /* Moves in front of the flap but behind the bottom pocket */
 
-            height: 220px; /* Expands slightly to show text */
+            height: 220px;
+            /* Expands slightly to show text */
 
         }
 
@@ -2472,17 +2488,18 @@
 
             opacity: 1;
 
-            transition-delay: 0.4s; /* Wait for paper to slide up */
+            transition-delay: 0.4s;
+            /* Wait for paper to slide up */
 
         }
 
-        
+
 
         /* 4. Front pocket stays on top of bottom part of paper */
 
         .letter-container.open .envelope-front {
 
-            z-index: 4; 
+            z-index: 4;
 
         }
 
@@ -2502,7 +2519,8 @@
 
             padding: 20px;
 
-            perspective: 1000px; /* Essential for 3D effect */
+            perspective: 1000px;
+            /* Essential for 3D effect */
 
         }
 
@@ -2550,7 +2568,8 @@
 
 
 
-        .flip-card-front, .flip-card-back {
+        .flip-card-front,
+        .flip-card-back {
 
             position: absolute;
 
@@ -2574,7 +2593,7 @@
 
             padding: 20px;
 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 
             border: 1px solid var(--glass-border);
 
@@ -2734,7 +2753,8 @@
 
             position: relative;
 
-            padding-left: 45px; /* Space for the heart */
+            padding-left: 45px;
+            /* Space for the heart */
 
             font-size: 1.1rem;
 
@@ -2744,7 +2764,8 @@
 
             transition: 0.3s;
 
-            user-select: none; /* Prevents highlighting text while clicking */
+            user-select: none;
+            /* Prevents highlighting text while clicking */
 
         }
 
@@ -2754,11 +2775,13 @@
 
         .todo-list label::before {
 
-            content: '\f004'; /* FontAwesome Heart Unicode */
+            content: '\f004';
+            /* FontAwesome Heart Unicode */
 
             font-family: 'Font Awesome 6 Free';
 
-            font-weight: 400; /* Regular outline */
+            font-weight: 400;
+            /* Regular outline */
 
             position: absolute;
 
@@ -2790,15 +2813,17 @@
 
         /* --- CHECKED STATE (The Magic) --- */
 
-        
+
 
         /* Change icon to Solid Heart */
 
-        .todo-list input[type="checkbox"]:checked + label::before {
+        .todo-list input[type="checkbox"]:checked+label::before {
 
-            font-weight: 900; /* Solid style */
+            font-weight: 900;
+            /* Solid style */
 
-            color: #ff4757; /* Bright Red/Pink */
+            color: #ff4757;
+            /* Bright Red/Pink */
 
             animation: heartBeat 0.4s ease-in-out forwards;
 
@@ -2808,7 +2833,7 @@
 
         /* Strikethrough text when checked */
 
-        .todo-list input[type="checkbox"]:checked + label {
+        .todo-list input[type="checkbox"]:checked+label {
 
             color: var(--accent);
 
@@ -2824,11 +2849,17 @@
 
         @keyframes heartBeat {
 
-            0% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+            }
 
-            50% { transform: scale(1.4); }
+            50% {
+                transform: scale(1.4);
+            }
 
-            100% { transform: scale(1); }
+            100% {
+                transform: scale(1);
+            }
 
         }
 
@@ -2884,7 +2915,7 @@
 
             backdrop-filter: blur(10px);
 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 
         }
 
@@ -2940,7 +2971,7 @@
 
             height: 10px;
 
-            background: rgba(0,0,0,0.1);
+            background: rgba(0, 0, 0, 0.1);
 
             border-radius: 10px;
 
@@ -2990,7 +3021,7 @@
 
         body.dark-mode .love-slider {
 
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
 
         }
 
@@ -3004,7 +3035,8 @@
 
             margin-bottom: 10px;
 
-            height: 60px; /* Fixed height to prevent jumping */
+            height: 60px;
+            /* Fixed height to prevent jumping */
 
             animation: bounce 1s infinite;
 
@@ -3066,7 +3098,7 @@
 
             backdrop-filter: blur(10px);
 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 
             transition: 0.3s;
 
@@ -3136,7 +3168,8 @@
 
             .stat-card {
 
-                width: 45%; /* Two cards per row on mobile */
+                width: 45%;
+                /* Two cards per row on mobile */
 
             }
 
@@ -3186,7 +3219,7 @@
 
             border-radius: 20px;
 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
 
             overflow: hidden;
 
@@ -3204,7 +3237,7 @@
 
             transform: rotateX(5deg) rotateY(5deg) scale(1.02);
 
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
 
         }
 
@@ -3218,7 +3251,8 @@
 
             padding: 30px;
 
-            border-right: 2px dashed #ddd; /* The tear-off line */
+            border-right: 2px dashed #ddd;
+            /* The tear-off line */
 
             position: relative;
 
@@ -3228,7 +3262,8 @@
 
         /* Cutout circles for realism */
 
-        .ticket-left::before, .ticket-left::after {
+        .ticket-left::before,
+        .ticket-left::after {
 
             content: '';
 
@@ -3240,15 +3275,20 @@
 
             height: 20px;
 
-            background: var(--bg); /* Matches page background */
+            background: var(--bg);
+            /* Matches page background */
 
             border-radius: 50%;
 
         }
 
-        .ticket-left::before { top: -10px; }
+        .ticket-left::before {
+            top: -10px;
+        }
 
-        .ticket-left::after { bottom: -10px; }
+        .ticket-left::after {
+            bottom: -10px;
+        }
 
 
 
@@ -3474,7 +3514,8 @@
 
         .barcode {
 
-            font-family: 'Libre Barcode 39', cursive; /* Fallback if no font */
+            font-family: 'Libre Barcode 39', cursive;
+            /* Fallback if no font */
 
             font-size: 1.5rem;
 
@@ -3486,7 +3527,7 @@
 
         }
 
-        
+
 
         .cheer-text {
 
@@ -3522,11 +3563,20 @@
 
 
 
-            .ticket-left::before { top: auto; bottom: -10px; left: -10px; }
+            .ticket-left::before {
+                top: auto;
+                bottom: -10px;
+                left: -10px;
+            }
 
-            .ticket-left::after { top: auto; bottom: -10px; right: -10px; left: auto;}
+            .ticket-left::after {
+                top: auto;
+                bottom: -10px;
+                right: -10px;
+                left: auto;
+            }
 
-            
+
 
             .ticket-right {
 
@@ -3544,6 +3594,22 @@
 
         }
 
+        /* Add this to fix the Mobile View Text */
+        @media (max-width: 768px) {
+            .home-content h1 {
+                font-size: 2.5rem;
+                /* Much smaller font for mobile to fit screen */
+                padding: 0 15px;
+                /* Add some side padding so it doesn't touch edges */
+            }
+
+            .home-content p {
+                font-size: 0.9rem;
+                /* Slightly smaller subtitle */
+                letter-spacing: 1px;
+                /* Reduce spacing slightly */
+            }
+        }
     </style>
 
 </head>
@@ -3660,7 +3726,7 @@
 
         <div class="timeline-container">
 
-            
+
 
             <div class="timeline-item left">
 
@@ -3670,7 +3736,8 @@
 
                     <h3>The First Time I Saw You</h3>
 
-                    <p>I don't know if you noticed, but time actually slowed down for a second. You were wearing that white-red saree.</p>
+                    <p>I don't know if you noticed, but time actually slowed down for a second. You were wearing that
+                        white-red saree.</p>
 
                 </div>
 
@@ -3686,7 +3753,8 @@
 
                     <h3>That One Chat</h3>
 
-                    <p>We were just talking about nothing important, but the way you laughed at my terrible joke made my whole week.</p>
+                    <p>We were just talking about nothing important, but the way you laughed at my terrible joke made my
+                        whole week.</p>
 
                 </div>
 
@@ -3702,7 +3770,8 @@
 
                     <h3>Creating This</h3>
 
-                    <p>I sat down to write some code, and I realized every line was just me trying to find a way to make you smile.</p>
+                    <p>I sat down to write some code, and I realized every line was just me trying to find a way to make
+                        you smile.</p>
 
                 </div>
 
@@ -3722,7 +3791,7 @@
 
         <div class="notes-container">
 
-            
+
 
             <div class="note yellow">
 
@@ -3774,7 +3843,7 @@
 
         <h2>One Last Thing...</h2>
 
-        
+
 
         <div class="letter-container" onclick="openLetter()">
 
@@ -3788,7 +3857,8 @@
 
                         <p><strong>Hey You,</strong></p>
 
-                        <p>If I could give you one thing in life, I would give you the ability to see yourself through my eyes.</p>
+                        <p>If I could give you one thing in life, I would give you the ability to see yourself through
+                            my eyes.</p>
 
                         <p>Only then would you realize how special you truly are.</p>
 
@@ -3820,7 +3890,7 @@
 
             <ul class="todo-list">
 
-                
+
 
                 <li>
 
@@ -3888,7 +3958,7 @@
 
             <p class="slider-title">How much I adore you:</p>
 
-            
+
 
             <div class="slider-wrapper">
 
@@ -3918,7 +3988,7 @@
 
         <div class="stats-container">
 
-            
+
 
             <div class="stat-card">
 
@@ -3980,7 +4050,7 @@
 
         <div class="cards-wrapper">
 
-            
+
 
             <div class="flip-card" onclick="this.classList.toggle('flipped')">
 
@@ -3998,7 +4068,8 @@
 
                     <div class="flip-card-back">
 
-                        <p>"Take a deep breath. You’ve handled difficult things before, and you’ll handle this too. I believe in you."</p>
+                        <p>"Take a deep breath. You’ve handled difficult things before, and you’ll handle this too. I
+                            believe in you."</p>
 
                     </div>
 
@@ -4024,7 +4095,8 @@
 
                     <div class="flip-card-back">
 
-                        <p>"I hope you freeze this moment. Your happiness is contagious, and you deserve every bit of it!"</p>
+                        <p>"I hope you freeze this moment. Your happiness is contagious, and you deserve every bit of
+                            it!"</p>
 
                     </div>
 
@@ -4050,7 +4122,8 @@
 
                     <div class="flip-card-back">
 
-                        <p>"Stop scrolling! Close your eyes, think of 3 nice things that happened today. Or... just text me."</p>
+                        <p>"Stop scrolling! Close your eyes, think of 3 nice things that happened today. Or... just text
+                            me."</p>
 
                     </div>
 
@@ -4546,7 +4619,7 @@
 
             <div class="ticket">
 
-                
+
 
                 <div class="ticket-left">
 
@@ -4558,7 +4631,7 @@
 
                     </div>
 
-                    
+
 
                     <div class="route">
 
@@ -4703,7 +4776,6 @@
                     <button class="btn-control" onclick="prevSong()"><i class="fas fa-backward"></i></button>
 
                     <button class="btn-control btn-play" onclick="togglePlay()" id="playBtn"><i
-
                             class="fas fa-play"></i></button>
 
                     <button class="btn-control" onclick="nextSong()"><i class="fas fa-forward"></i></button>
@@ -4717,7 +4789,6 @@
                     <i class="fas fa-volume-down"></i>
 
                     <input type="range" min="0" max="1" step="0.05" value="0.8" class="volume-slider"
-
                         onchange="setVolume(this.value)">
 
                     <i class="fas fa-volume-up"></i>
@@ -4744,7 +4815,7 @@
 
 
 
-    
+
 
     <footer>
 
@@ -5402,11 +5473,11 @@
 
             const instruction = document.querySelector('.instruction-text');
 
-            
+
 
             letter.classList.toggle('open');
 
-            
+
 
             // Hide the "Tap to Open" text once opened
 
@@ -5430,7 +5501,7 @@
 
 
 
-        slider.addEventListener('input', function() {
+        slider.addEventListener('input', function () {
 
             const val = this.value;
 
@@ -5470,13 +5541,13 @@
 
         // The Magic Snap-Back Effect
 
-        slider.addEventListener('change', function() {
+        slider.addEventListener('change', function () {
 
             // When she lets go, snap back to 100
 
             let currentVal = parseInt(this.value);
 
-            
+
 
             if (currentVal < 100) {
 
@@ -5486,15 +5557,15 @@
 
                     this.value = currentVal;
 
-                    
+
 
                     // Update visuals as it snaps back
 
                     if (currentVal > 80) {
 
-                         emoji.innerText = "🥰";
+                        emoji.innerText = "🥰";
 
-                         text.innerText = "Knew you couldn't resist!";
+                        text.innerText = "Knew you couldn't resist!";
 
                     }
 
@@ -5534,7 +5605,7 @@
 
                 const speed = 200; // The lower the slower
 
-                
+
 
                 const updateCount = () => {
 
