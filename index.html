@@ -1,634 +1,5593 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
+
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Specially For You</title>
 
+
+
     <link
+
         href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Montserrat:wght@300;400;500;600&display=swap"
+
         rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+
 
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Montserrat:wght@300;400;500;600&family=Indie+Flower&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css">
+
+
+    <style>
+
+        /* --- THEME VARIABLES --- */
+
+        :root {
+
+            --bg: #fffcf8;
+
+            --glass: rgba(255, 255, 255, 0.85);
+
+            --glass-border: rgba(255, 255, 255, 0.8);
+
+            --accent: #dba5a6;
+
+            --accent-dark: #b88687;
+
+            --gold: #cba173;
+
+            --text-dark: #5a4a4a;
+
+            --nav-bg: rgba(255, 255, 255, 0.6);
+
+            --footer-bg: #fff5f5;
+
+            --player-bg: rgba(255, 255, 255, 0.4);
+
+        }
+
+
+
+        body.dark-mode {
+
+            --bg: #1a1515;
+
+            --glass: rgba(40, 35, 35, 0.85);
+
+            --glass-border: rgba(60, 60, 60, 0.5);
+
+            --accent: #eeb8b9;
+
+            --accent-dark: #d49a9b;
+
+            --text-dark: #e6e0e0;
+
+            --nav-bg: rgba(20, 20, 20, 0.8);
+
+            --footer-bg: #241e1e;
+
+            --player-bg: rgba(0, 0, 0, 0.3);
+
+        }
+
+
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+        }
+
+
+
+        html {
+
+            scroll-behavior: smooth;
+
+        }
+
+
+
+        body {
+
+            background-color: var(--bg);
+
+            color: var(--text-dark);
+
+            font-family: 'Montserrat', sans-serif;
+
+            overflow-x: hidden;
+
+            transition: background-color 0.4s ease, color 0.4s ease;
+
+        }
+
+
+
+        /* --- BACKGROUND BLOBS --- */
+
+        body::before,
+
+        body::after {
+
+            content: '';
+
+            position: fixed;
+
+            width: 500px;
+
+            height: 500px;
+
+            border-radius: 50%;
+
+            filter: blur(80px);
+
+            opacity: 0.15;
+
+            z-index: -1;
+
+            pointer-events: none;
+
+        }
+
+
+
+        body::before {
+
+            top: -200px;
+
+            left: -200px;
+
+            background: var(--accent);
+
+        }
+
+
+
+        body::after {
+
+            bottom: -200px;
+
+            right: -200px;
+
+            background: var(--gold);
+
+        }
+
+
+
+        /* --- NAVIGATION --- */
+
+        nav {
+
+            position: fixed;
+
+            top: 0;
+
+            width: 100%;
+
+            padding: 15px 30px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            z-index: 1000;
+
+            backdrop-filter: blur(10px);
+
+            background: var(--nav-bg);
+
+            border-bottom: 1px solid rgba(219, 165, 166, 0.2);
+
+            transition: 0.3s;
+
+        }
+
+
+
+        .logo {
+
+            font-family: 'Cinzel Decorative', serif;
+
+            font-size: 1.5rem;
+
+            color: var(--accent);
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+        }
+
+
+
+        .logo i {
+
+            color: var(--accent);
+
+            animation: beat 1.5s infinite;
+
+        }
+
+
+
+        @keyframes beat {
+
+
+
+            0%,
+
+            100% {
+
+                transform: scale(1);
+
+            }
+
+
+
+            50% {
+
+                transform: scale(1.2);
+
+            }
+
+        }
+
+
+
+        .nav-links {
+
+            display: flex;
+
+            gap: 30px;
+
+            list-style: none;
+
+        }
+
+
+
+        .nav-links a {
+
+            color: var(--text-dark);
+
+            text-decoration: none;
+
+            text-transform: uppercase;
+
+            font-size: 0.8rem;
+
+            letter-spacing: 2px;
+
+            font-weight: 500;
+
+            transition: 0.3s;
+
+            position: relative;
+
+        }
+
+
+
+        .nav-links a::after {
+
+            content: '';
+
+            position: absolute;
+
+            width: 0;
+
+            height: 2px;
+
+            bottom: -5px;
+
+            left: 0;
+
+            background-color: var(--accent);
+
+            transition: width 0.3s;
+
+        }
+
+
+
+        .nav-links a:hover::after {
+
+            width: 100%;
+
+        }
+
+
+
+        .nav-links a:hover {
+
+            color: var(--accent);
+
+        }
+
+
+
+        .hamburger {
+
+            display: none;
+
+            cursor: pointer;
+
+            font-size: 1.5rem;
+
+            color: var(--text-dark);
+
+        }
+
+
+
+        @media (max-width: 768px) {
+
+            .hamburger {
+
+                display: block;
+
+            }
+
+
+
+            .nav-links {
+
+                position: absolute;
+
+                top: 100%;
+
+                left: 0;
+
+                width: 100%;
+
+                background: var(--nav-bg);
+
+                backdrop-filter: blur(20px);
+
+                flex-direction: column;
+
+                align-items: center;
+
+                gap: 0;
+
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+                max-height: 0;
+
+                overflow: hidden;
+
+                transition: max-height 0.4s ease-in-out;
+
+            }
+
+
+
+            .nav-links.active {
+
+                /* INCREASED HEIGHT TO FIT ALL NEW LINKS */
+
+                max-height: 450px; 
+
+            }
+
+
+
+            .nav-links a {
+
+                padding: 20px;
+
+                width: 100%;
+
+                text-align: center;
+
+                border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+
+            }
+
+
+
+            .nav-links a:hover {
+
+                background: rgba(219, 165, 166, 0.1);
+
+            }
+
+        }
+
+
+
+        /* --- SECTIONS --- */
+
+        section {
+
+            min-height: 100vh;
+
+            padding: 80px 20px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            position: relative;
+
+        }
+
+
+
+        h2 {
+
+            font-family: 'Cinzel Decorative', serif;
+
+            font-size: 3rem;
+
+            color: var(--accent);
+
+            margin-bottom: 50px;
+
+            text-align: center;
+
+        }
+
+
+
+        /* --- HERO --- */
+
+        #home {
+
+            height: 100vh;
+
+            overflow: hidden;
+
+        }
+
+
+
+        .kb-slideshow {
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            z-index: -1;
+
+        }
+
+
+
+        .kb-slide {
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            background-size: cover;
+
+            background-position: center;
+
+            opacity: 0;
+
+            transform: scale(1);
+
+            animation: kenburns 24s linear infinite;
+
+        }
+
+
+
+        .kb-slide:nth-child(1) {
+
+            animation-delay: 0s;
+
+        }
+
+
+
+        .kb-slide:nth-child(2) {
+
+            animation-delay: 6s;
+
+        }
+
+
+
+        .kb-slide:nth-child(3) {
+
+            animation-delay: 12s;
+
+        }
+
+
+
+        .kb-slide:nth-child(4) {
+
+            animation-delay: 18s;
+
+        }
+
+
+
+        .kb-slide:nth-child(5) {
+
+            animation-delay: 24s;
+
+        }
+
+
+
+        @keyframes kenburns {
+
+            0% {
+
+                opacity: 0;
+
+                transform: scale(1);
+
+            }
+
+
+
+            5% {
+
+                opacity: 1;
+
+            }
+
+
+
+            25% {
+
+                opacity: 1;
+
+            }
+
+
+
+            30% {
+
+                opacity: 0;
+
+                transform: scale(1.15);
+
+            }
+
+
+
+            100% {
+
+                opacity: 0;
+
+                transform: scale(1.15);
+
+            }
+
+        }
+
+
+
+        .overlay {
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            background: rgba(60, 40, 40, 0.3);
+
+            z-index: 0;
+
+        }
+
+
+
+        .home-content {
+
+            z-index: 2;
+
+            text-align: center;
+
+            color: white;
+
+        }
+
+
+
+        .home-content h1 {
+
+            font-size: 4.5rem;
+
+            font-family: 'Cinzel Decorative', serif;
+
+            margin-bottom: 10px;
+
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+
+        }
+
+
+
+        /* --- ABOUT --- */
+
+        .about-container {
+
+            max-width: 700px;
+
+            background: var(--glass);
+
+            padding: 50px;
+
+            border-radius: 30px;
+
+            border: 2px solid var(--glass-border);
+
+            backdrop-filter: blur(15px);
+
+            text-align: center;
+
+            box-shadow: 0 10px 30px rgba(219, 165, 166, 0.15);
+
+        }
+
+
+
+        .about-container p {
+
+            font-size: 1.2rem;
+
+            line-height: 1.9;
+
+            color: var(--text-dark);
+
+            font-weight: 400;
+
+        }
+
+
+
+        /* --- GALLERY --- */
+
+        .swiper {
+
+            width: 100%;
+
+            padding-top: 50px;
+
+            padding-bottom: 50px;
+
+        }
+
+
+
+        .swiper-slide {
+
+            background-position: center;
+
+            background-size: cover;
+
+            width: 300px;
+
+            height: 450px;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            position: relative;
+
+            box-shadow: 0 15px 40px rgba(90, 74, 74, 0.2);
+
+            border: 4px solid white;
+
+        }
+
+
+
+        .swiper-slide img {
+
+            display: block;
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+        }
+
+
+
+        .slide-overlay {
+
+            position: absolute;
+
+            bottom: -100%;
+
+            left: 0;
+
+            width: 100%;
+
+            padding: 25px;
+
+            background: linear-gradient(to top, rgba(219, 165, 166, 0.95), rgba(219, 165, 166, 0.6));
+
+            backdrop-filter: blur(5px);
+
+            color: white;
+
+            transition: bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+        }
+
+
+
+        .slide-overlay h3 {
+
+            font-family: 'Cinzel Decorative', serif;
+
+            color: white;
+
+            margin-bottom: 8px;
+
+            font-size: 1.3rem;
+
+        }
+
+
+
+        .swiper-slide:hover .slide-overlay {
+
+            bottom: 0;
+
+        }
+
+
+
+        /* --- MUSIC PLAYER SECTION --- */
+
+        #music-section {
+
+            background: radial-gradient(circle at center, rgba(219, 165, 166, 0.1) 0%, transparent 70%);
+
+        }
+
+
+
+        .music-wrapper {
+
+            display: flex;
+
+            flex-direction: row;
+
+            background: var(--glass);
+
+            border: 1px solid var(--glass-border);
+
+            backdrop-filter: blur(20px);
+
+            border-radius: 30px;
+
+            padding: 30px;
+
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+
+            max-width: 900px;
+
+            width: 95%;
+
+            gap: 40px;
+
+            align-items: center;
+
+        }
+
+
+
+        .player-main {
+
+            flex: 1;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            text-align: center;
+
+            min-width: 300px;
+
+        }
+
+
+
+        .disk-container {
+
+            position: relative;
+
+            width: 220px;
+
+            height: 220px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+
+        .disk {
+
+            width: 100%;
+
+            height: 100%;
+
+            border-radius: 50%;
+
+            object-fit: cover;
+
+            border: 4px solid var(--bg);
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+            animation: rotateRecord 20s linear infinite;
+
+            animation-play-state: paused;
+
+        }
+
+
+
+        .disk.playing {
+
+            animation-play-state: running;
+
+        }
+
+
+
+        .disk-container::after {
+
+            content: '';
+
+            position: absolute;
+
+            top: 50%;
+
+            left: 50%;
+
+            transform: translate(-50%, -50%);
+
+            width: 40px;
+
+            height: 40px;
+
+            background: var(--bg);
+
+            border-radius: 50%;
+
+            z-index: 2;
+
+            border: 2px solid var(--accent);
+
+        }
+
+
+
+        @keyframes rotateRecord {
+
+            from {
+
+                transform: rotate(0deg);
+
+            }
+
+
+
+            to {
+
+                transform: rotate(360deg);
+
+            }
+
+        }
+
+
+
+        .song-info h3 {
+
+            font-family: 'Cinzel Decorative', serif;
+
+            color: var(--accent);
+
+            font-size: 1.5rem;
+
+            margin-bottom: 5px;
+
+        }
+
+
+
+        .song-info p {
+
+            font-size: 0.9rem;
+
+            color: var(--text-dark);
+
+            opacity: 0.8;
+
+            margin-bottom: 20px;
+
+        }
+
+
+
+        .progress-container {
+
+            width: 100%;
+
+            margin-bottom: 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            font-size: 0.8rem;
+
+            color: var(--text-dark);
+
+        }
+
+
+
+        .progress-bar {
+
+            flex: 1;
+
+            height: 6px;
+
+            background: rgba(0, 0, 0, 0.1);
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            position: relative;
+
+        }
+
+
+
+        body.dark-mode .progress-bar {
+
+            background: rgba(255, 255, 255, 0.1);
+
+        }
+
+
+
+        .progress-fill {
+
+            height: 100%;
+
+            background: var(--accent);
+
+            border-radius: 10px;
+
+            width: 0%;
+
+            position: relative;
+
+            transition: width 0.1s linear;
+
+        }
+
+
+
+        .progress-fill::after {
+
+            content: '';
+
+            position: absolute;
+
+            right: -5px;
+
+            top: -3px;
+
+            width: 12px;
+
+            height: 12px;
+
+            background: var(--accent);
+
+            border-radius: 50%;
+
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+
+            opacity: 0;
+
+            transition: opacity 0.2s;
+
+        }
+
+
+
+        .progress-bar:hover .progress-fill::after {
+
+            opacity: 1;
+
+        }
+
+
+
+        .controls {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 20px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+
+        .btn-control {
+
+            background: none;
+
+            border: none;
+
+            color: var(--text-dark);
+
+            font-size: 1.5rem;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+
+        }
+
+
+
+        .btn-control:hover {
+
+            color: var(--accent);
+
+            transform: scale(1.1);
+
+        }
+
+
+
+        .btn-play {
+
+            width: 60px;
+
+            height: 60px;
+
+            background: var(--accent);
+
+            color: white !important;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 1.8rem;
+
+            box-shadow: 0 5px 15px rgba(219, 165, 166, 0.4);
+
+        }
+
+
+
+        .btn-play:hover {
+
+            background: var(--accent-dark);
+
+            box-shadow: 0 5px 20px rgba(219, 165, 166, 0.6);
+
+            color: white;
+
+        }
+
+
+
+        .volume-container {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            width: 80%;
+
+            color: var(--text-dark);
+
+        }
+
+
+
+        .volume-slider {
+
+            flex: 1;
+
+            -webkit-appearance: none;
+
+            height: 4px;
+
+            background: rgba(0, 0, 0, 0.1);
+
+            border-radius: 5px;
+
+            outline: none;
+
+        }
+
+
+
+        body.dark-mode .volume-slider {
+
+            background: rgba(255, 255, 255, 0.1);
+
+        }
+
+
+
+        .volume-slider::-webkit-slider-thumb {
+
+            -webkit-appearance: none;
+
+            width: 12px;
+
+            height: 12px;
+
+            background: var(--accent);
+
+            border-radius: 50%;
+
+            cursor: pointer;
+
+        }
+
+
+
+        /* --- RIGHT SIDE: PLAYLIST --- */
+
+        .playlist-side {
+
+            flex: 1;
+
+            height: 400px;
+
+            overflow-y: auto;
+
+            padding-right: 10px;
+
+            border-left: 1px solid rgba(0, 0, 0, 0.05);
+
+            padding-left: 30px;
+
+        }
+
+
+
+        body.dark-mode .playlist-side {
+
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+
+        }
+
+
+
+        /* Desktop Scrollbar Styling */
+
+        @media (min-width: 901px) {
+
+            .playlist-side::-webkit-scrollbar {
+
+                width: 6px;
+
+            }
+
+
+
+            .playlist-side::-webkit-scrollbar-track {
+
+                background: transparent;
+
+            }
+
+
+
+            .playlist-side::-webkit-scrollbar-thumb {
+
+                background: transparent;
+
+                border-radius: 10px;
+
+            }
+
+
+
+            .playlist-side:hover::-webkit-scrollbar-thumb {
+
+                background: var(--accent);
+
+            }
+
+        }
+
+
+
+        .playlist-header {
+
+            font-family: 'Cinzel Decorative', serif;
+
+            font-size: 1.5rem;
+
+            color: var(--text-dark);
+
+            margin-bottom: 20px;
+
+            border-bottom: 2px solid var(--accent);
+
+            padding-bottom: 10px;
+
+            display: inline-block;
+
+        }
+
+
+
+        .song-item {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            padding: 12px;
+
+            border-radius: 15px;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+            margin-bottom: 10px;
+
+            background: rgba(255, 255, 255, 0.3);
+
+        }
+
+
+
+        body.dark-mode .song-item {
+
+            background: rgba(255, 255, 255, 0.05);
+
+        }
+
+
+
+        .song-item:hover {
+
+            background: rgba(219, 165, 166, 0.2);
+
+            transform: translateX(5px);
+
+        }
+
+
+
+        .song-item.active {
+
+            background: var(--accent);
+
+            color: white;
+
+            box-shadow: 0 5px 15px rgba(219, 165, 166, 0.3);
+
+        }
+
+
+
+        .song-item.active p,
+
+        .song-item.active span {
+
+            color: white;
+
+        }
+
+
+
+        .song-item img {
+
+            width: 50px;
+
+            height: 50px;
+
+            border-radius: 10px;
+
+            object-fit: cover;
+
+        }
+
+
+
+        .song-details {
+
+            flex: 1;
+
+        }
+
+
+
+        .song-title {
+
+            font-weight: 600;
+
+            font-size: 1rem;
+
+            color: var(--text-dark);
+
+            display: block;
+
+        }
+
+
+
+        .song-artist {
+
+            font-size: 0.8rem;
+
+            opacity: 0.7;
+
+            color: var(--text-dark);
+
+        }
+
+
+
+        .music-bars-animation {
+
+            display: flex;
+
+            gap: 3px;
+
+            height: 20px;
+
+            align-items: flex-end;
+
+            opacity: 0;
+
+        }
+
+
+
+        .song-item.active .music-bars-animation {
+
+            opacity: 1;
+
+        }
+
+
+
+        .bar {
+
+            width: 4px;
+
+            background: white;
+
+            animation: bounce 1s infinite ease-in-out;
+
+        }
+
+
+
+        .bar:nth-child(1) {
+
+            animation-delay: 0.1s;
+
+            height: 10px;
+
+        }
+
+
+
+        .bar:nth-child(2) {
+
+            animation-delay: 0.3s;
+
+            height: 15px;
+
+        }
+
+
+
+        .bar:nth-child(3) {
+
+            animation-delay: 0.5s;
+
+            height: 8px;
+
+        }
+
+
+
+        @keyframes bounce {
+
+
+
+            0%,
+
+            100% {
+
+                transform: scaleY(1);
+
+            }
+
+
+
+            50% {
+
+                transform: scaleY(1.5);
+
+            }
+
+        }
+
+
+
+        /* --- RESPONSIVE PLAYER --- */
+
+        @media(max-width: 900px) {
+
+            .music-wrapper {
+
+                flex-direction: column;
+
+                padding: 20px;
+
+            }
+
+
+
+            .playlist-side {
+
+                width: 100%;
+
+                border-left: none;
+
+                border-top: 1px solid rgba(0, 0, 0, 0.05);
+
+                padding-left: 0;
+
+                padding-top: 20px;
+
+
+
+                /* --- SCROLL FIX START --- */
+
+                display: block;
+
+                /* Ensures it acts as a block element */
+
+                flex: none;
+
+                /* Prevents it from stretching via Flexbox rules */
+
+                height: 300px;
+
+                /* The fixed window size for the playlist */
+
+                overflow-y: auto;
+
+                /* Enables the vertical scrollbar */
+
+                scroll-behavior: smooth;
+
+                /* --- SCROLL FIX END --- */
+
+            }
+
+
+
+            /* FORCE SCROLLBAR VISIBILITY ON MOBILE */
+
+            .playlist-side::-webkit-scrollbar {
+
+                width: 5px;
+
+                /* Slightly thinner for mobile */
+
+                display: block;
+
+            }
+
+
+
+            .playlist-side::-webkit-scrollbar-track {
+
+                background: rgba(0, 0, 0, 0.05);
+
+            }
+
+
+
+            .playlist-side::-webkit-scrollbar-thumb {
+
+                background: var(--accent);
+
+                border-radius: 10px;
+
+            }
+
+        }
+
+
+
+        /* --- FOOTER --- */
+
+        footer {
+
+            padding: 50px 20px;
+
+            text-align: center;
+
+            background: var(--footer-bg);
+
+            color: var(--text-dark);
+
+            position: relative;
+
+            z-index: 2;
+
+        }
+
+
+
+        .footer-signature {
+
+            font-family: 'Cinzel Decorative', serif;
+
+            margin-top: 20px;
+
+            font-size: 1.1rem;
+
+            color: var(--accent);
+
+        }
+
+
+
+        /* Theme Toggle */
+
+        .theme-toggle {
+
+            position: fixed;
+
+            bottom: 30px;
+
+            right: 30px;
+
+            width: 55px;
+
+            height: 55px;
+
+            background: var(--bg);
+
+            color: var(--accent);
+
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            cursor: pointer;
+
+            z-index: 999;
+
+            font-size: 1.3rem;
+
+            transition: 0.3s;
+
+            border: 2px solid var(--accent);
+
+        }
+
+
+
+        .theme-toggle:hover {
+
+            transform: scale(1.1);
+
+            background: var(--accent);
+
+            color: var(--bg);
+
+        }
+
+
+
+        /* --- TRAITS SECTION --- */
+
+        #traits {
+
+            background: linear-gradient(to bottom, var(--bg), rgba(219, 165, 166, 0.1));
+
+        }
+
+
+
+        .traits-container {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 40px;
+
+            flex-wrap: wrap;
+
+            max-width: 1200px;
+
+            padding: 0 20px;
+
+        }
+
+
+
+        .trait-card {
+
+            background: var(--glass);
+
+            border: 1px solid var(--glass-border);
+
+            padding: 40px 30px;
+
+            border-radius: 20px;
+
+            width: 300px;
+
+            text-align: center;
+
+            backdrop-filter: blur(10px);
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+
+            transition: all 0.4s ease;
+
+            position: relative;
+
+            overflow: hidden;
+
+        }
+
+
+
+        /* Hover Effect: Lift and Glow */
+
+        .trait-card:hover {
+
+            transform: translateY(-15px);
+
+            box-shadow: 0 20px 40px rgba(219, 165, 166, 0.3);
+
+            border-color: var(--accent);
+
+        }
+
+
+
+        .icon-box {
+
+            font-size: 2.5rem;
+
+            color: var(--accent);
+
+            margin-bottom: 20px;
+
+            transition: 0.4s;
+
+        }
+
+
+
+        .trait-card:hover .icon-box {
+
+            transform: scale(1.2) rotate(10deg);
+
+            color: var(--accent-dark);
+
+        }
+
+
+
+        .trait-card h3 {
+
+            font-family: 'Cinzel Decorative', serif;
+
+            font-size: 1.5rem;
+
+            margin-bottom: 15px;
+
+            color: var(--text-dark);
+
+        }
+
+
+
+        .trait-card p {
+
+            font-size: 0.95rem;
+
+            line-height: 1.6;
+
+            color: var(--text-dark);
+
+            opacity: 0.8;
+
+        }
+
+
+
+        /* Responsive Fix for Mobile */
+
+        @media (max-width: 768px) {
+
+            .traits-container {
+
+                gap: 20px;
+
+            }
+
+
+
+            .trait-card {
+
+                width: 100%;
+
+                /* Full width cards on mobile */
+
+                margin-bottom: 10px;
+
+            }
+
+        }
+
+
+
+        /* --- TIMELINE SECTION --- */
+
+        #timeline {
+
+            position: relative;
+
+            overflow: hidden;
+
+        }
+
+
+
+        .timeline-container {
+
+            position: relative;
+
+            max-width: 1000px;
+
+            width: 100%;
+
+            margin: 0 auto;
+
+            padding: 20px;
+
+        }
+
+
+
+        /* The Vertical Line */
+
+        .timeline-container::after {
+
+            content: '';
+
+            position: absolute;
+
+            width: 4px;
+
+            background-color: var(--accent);
+
+            top: 0;
+
+            bottom: 0;
+
+            left: 50%;
+
+            margin-left: -2px;
+
+            border-radius: 2px;
+
+            z-index: 1;
+
+        }
+
+
+
+        .timeline-item {
+
+            padding: 10px 40px;
+
+            position: relative;
+
+            width: 50%;
+
+            box-sizing: border-box;
+
+            opacity: 0; /* Hidden initially for animation */
+
+            transform: translateY(50px);
+
+            transition: all 0.8s ease;
+
+        }
+
+
+
+        /* Animation Class */
+
+        .timeline-item.show {
+
+            opacity: 1;
+
+            transform: translateY(0);
+
+        }
+
+
+
+        /* Left and Right positioning */
+
+        .left {
+
+            left: 0;
+
+        }
+
+
+
+        .right {
+
+            left: 50%;
+
+        }
+
+
+
+        /* The Dots on the Line */
+
+        .timeline-item::after {
+
+            content: '';
+
+            position: absolute;
+
+            width: 20px;
+
+            height: 20px;
+
+            right: -12px;
+
+            background-color: var(--bg);
+
+            border: 4px solid var(--accent);
+
+            top: 20px;
+
+            border-radius: 50%;
+
+            z-index: 2;
+
+        }
+
+
+
+        .right::after {
+
+            left: -12px;
+
+        }
+
+
+
+        /* The Content Card */
+
+        .timeline-content {
+
+            padding: 25px;
+
+            background: var(--glass);
+
+            border: 1px solid var(--glass-border);
+
+            border-radius: 15px;
+
+            backdrop-filter: blur(10px);
+
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+
+            text-align: left;
+
+        }
+
+
+
+        .timeline-content .date {
+
+            font-size: 0.8rem;
+
+            color: var(--accent);
+
+            font-weight: bold;
+
+            letter-spacing: 1px;
+
+            text-transform: uppercase;
+
+        }
+
+
+
+        .timeline-content h3 {
+
+            font-family: 'Cinzel Decorative', serif;
+
+            margin: 10px 0;
+
+            font-size: 1.4rem;
+
+        }
+
+
+
+        .timeline-content p {
+
+            font-size: 0.95rem;
+
+            line-height: 1.6;
+
+        }
+
+
+
+        /* --- RESPONSIVE TIMELINE --- */
+
+        @media (max-width: 768px) {
+
+            .timeline-container::after {
+
+                left: 30px; /* Move line to the left side */
+
+            }
+
+
+
+            .timeline-item {
+
+                width: 100%;
+
+                padding-left: 70px;
+
+                padding-right: 20px;
+
+            }
+
+
+
+            .timeline-item::after {
+
+                left: 20px; /* Move dot to the line */
+
+            }
+
+
+
+            .right {
+
+                left: 0%;
+
+            }
+
+        }
+
+
+
+        /* --- STICKY NOTES SECTION --- */
+
+        #notes {
+
+            background-color: transparent; /* Blends with your background */
+
+        }
+
+
+
+        .notes-container {
+
+            display: flex;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 30px;
+
+            max-width: 1000px;
+
+            padding: 20px;
+
+        }
+
+
+
+        .note {
+
+            width: 220px;
+
+            height: 220px;
+
+            padding: 25px;
+
+            box-sizing: border-box;
+
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            text-align: center;
+
+            position: relative;
+
+            transition: transform 0.3s ease;
+
+            cursor: default;
+
+        }
+
+
+
+        /* Handwritten Font Styling */
+
+        .note p {
+
+            font-family: 'Indie Flower', cursive;
+
+            font-size: 1.3rem;
+
+            color: #4a4a4a; /* Dark gray text looks like pencil/ink */
+
+            line-height: 1.4;
+
+            font-weight: 600;
+
+        }
+
+
+
+        /* Hover Effect: Zoom and Straighten */
+
+        .note:hover {
+
+            transform: scale(1.1) rotate(0deg) !important; /* !important overrides the random rotation */
+
+            z-index: 10;
+
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+
+        }
+
+
+
+        /* --- NOTE COLORS --- */
+
+        .yellow {
+
+            background: #fff740;
+
+            transform: rotate(-3deg);
+
+        }
+
+
+
+        .pink {
+
+            background: #ffc4d6;
+
+            transform: rotate(4deg);
+
+        }
+
+
+
+        .blue {
+
+            background: #d4f1f4;
+
+            transform: rotate(-5deg);
+
+        }
+
+
+
+        .green {
+
+            background: #e2f0cb;
+
+            transform: rotate(2deg);
+
+        }
+
+
+
+        /* --- PINS AND TAPE --- */
+
+        .pin {
+
+            position: absolute;
+
+            top: -15px;
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            color: #d14949;
+
+            font-size: 1.5rem;
+
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+
+        }
+
+
+
+        .pin-tape {
+
+            position: absolute;
+
+            top: -10px;
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            color: rgba(255, 255, 255, 0.6);
+
+            font-size: 1.2rem;
+
+        }
+
+
+
+        /* Dark Mode Adjustment for Notes */
+
+        body.dark-mode .note {
+
+            opacity: 0.9; /* Dims them slightly so they aren't blinding in dark mode */
+
+        }
+
+
+
+        /* --- SECRET LETTER SECTION --- */
+
+        #letter-section {
+
+            padding-bottom: 100px;
+
+        }
+
+
+
+        .letter-container {
+
+            position: relative;
+
+            width: 300px;
+
+            height: 200px;
+
+            cursor: pointer;
+
+            margin-top: 20px;
+
+        }
+
+
+
+        /* The Envelope Body */
+
+        .envelope {
+
+            position: relative;
+
+            width: 100%;
+
+            height: 100%;
+
+            background: #f0e6d2; /* Creamy paper color */
+
+            border-radius: 5px;
+
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+
+        }
+
+
+
+        /* The Flap (Triangle) */
+
+        .envelope-flap {
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            width: 0;
+
+            height: 0;
+
+            border-left: 150px solid transparent;
+
+            border-right: 150px solid transparent;
+
+            border-top: 110px solid var(--accent-dark); /* Darker pink for contrast */
+
+            transform-origin: top;
+
+            transition: 0.6s;
+
+            z-index: 5;
+
+        }
+
+
+
+        /* The Front Pocket (Triangles) */
+
+        .envelope-front {
+
+            position: absolute;
+
+            bottom: 0;
+
+            left: 0;
+
+            width: 0;
+
+            height: 0;
+
+            border-left: 150px solid transparent;
+
+            border-right: 150px solid transparent;
+
+            border-bottom: 120px solid var(--accent); /* Main pink color */
+
+            z-index: 4;
+
+            border-radius: 0 0 5px 5px;
+
+        }
+
+
+
+        /* The Paper Inside */
+
+        .envelope-paper {
+
+            position: absolute;
+
+            top: 10px;
+
+            left: 15px;
+
+            width: 270px;
+
+            height: 180px;
+
+            background: white;
+
+            padding: 20px;
+
+            transition: 0.6s;
+
+            z-index: 1; /* Hidden inside initially */
+
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+
+            overflow: hidden;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+        }
+
+
+
+        .letter-text {
+
+            font-family: 'Indie Flower', cursive; /* Handwritten font */
+
+            font-size: 1rem;
+
+            color: #555;
+
+            text-align: center;
+
+            opacity: 0; /* Text hidden until opened */
+
+            transition: 0.3s;
+
+        }
+
+
+
+        .signature {
+
+            margin-top: 15px;
+
+            font-weight: bold;
+
+            color: var(--accent);
+
+        }
+
+
+
+        .instruction-text {
+
+            text-align: center;
+
+            margin-top: 20px;
+
+            font-size: 0.9rem;
+
+            color: var(--text-dark);
+
+            opacity: 0.6;
+
+            animation: bounce 2s infinite;
+
+        }
+
+
+
+        /* --- OPEN STATE ANIMATIONS --- */
+
+        
+
+        /* 1. Flap opens 180 degrees */
+
+        .letter-container.open .envelope-flap {
+
+            transform: rotateX(180deg);
+
+            z-index: 1; /* Moves behind the paper */
+
+        }
+
+
+
+        /* 2. Paper slides up */
+
+        .letter-container.open .envelope-paper {
+
+            transform: translateY(-100px); /* Slides up out of envelope */
+
+            z-index: 3; /* Moves in front of the flap but behind the bottom pocket */
+
+            height: 220px; /* Expands slightly to show text */
+
+        }
+
+
+
+        /* 3. Text appears */
+
+        .letter-container.open .letter-text {
+
+            opacity: 1;
+
+            transition-delay: 0.4s; /* Wait for paper to slide up */
+
+        }
+
+        
+
+        /* 4. Front pocket stays on top of bottom part of paper */
+
+        .letter-container.open .envelope-front {
+
+            z-index: 4; 
+
+        }
+
+
+
+        /* --- OPEN WHEN SECTION --- */
+
+        .cards-wrapper {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 30px;
+
+            flex-wrap: wrap;
+
+            padding: 20px;
+
+            perspective: 1000px; /* Essential for 3D effect */
+
+        }
+
+
+
+        .flip-card {
+
+            background-color: transparent;
+
+            width: 280px;
+
+            height: 350px;
+
+            cursor: pointer;
+
+        }
+
+
+
+        .flip-card-inner {
+
+            position: relative;
+
+            width: 100%;
+
+            height: 100%;
+
+            text-align: center;
+
+            transition: transform 0.8s;
+
+            transform-style: preserve-3d;
+
+        }
+
+
+
+        /* The Javascript class 'flipped' triggers the rotation */
+
+        .flip-card.flipped .flip-card-inner {
+
+            transform: rotateY(180deg);
+
+        }
+
+
+
+        .flip-card-front, .flip-card-back {
+
+            position: absolute;
+
+            width: 100%;
+
+            height: 100%;
+
+            -webkit-backface-visibility: hidden;
+
+            backface-visibility: hidden;
+
+            border-radius: 20px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 20px;
+
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+
+            border: 1px solid var(--glass-border);
+
+        }
+
+
+
+        /* Front Side Styling */
+
+        .flip-card-front {
+
+            background: var(--glass);
+
+            backdrop-filter: blur(10px);
+
+        }
+
+
+
+        .flip-card-front i {
+
+            font-size: 3rem;
+
+            color: var(--accent);
+
+            margin-bottom: 20px;
+
+        }
+
+
+
+        .flip-card-front h3 {
+
+            font-family: 'Cinzel Decorative', serif;
+
+            font-size: 1.4rem;
+
+            color: var(--text-dark);
+
+        }
+
+
+
+        .tap-hint {
+
+            margin-top: 20px;
+
+            font-size: 0.8rem;
+
+            opacity: 0.6;
+
+        }
+
+
+
+        /* Back Side Styling */
+
+        .flip-card-back {
+
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+
+            color: white;
+
+            transform: rotateY(180deg);
+
+        }
+
+
+
+        .flip-card-back p {
+
+            font-size: 1.1rem;
+
+            line-height: 1.6;
+
+            font-weight: 500;
+
+            font-style: italic;
+
+        }
+
+
+
+
+
+        /* --- TO-DO LIST SECTION --- */
+
+        #todo-section {
+
+            background: linear-gradient(to top, var(--bg), rgba(219, 165, 166, 0.05));
+
+        }
+
+
+
+        .todo-container {
+
+            max-width: 600px;
+
+            background: var(--glass);
+
+            border: 1px solid var(--glass-border);
+
+            border-radius: 20px;
+
+            padding: 40px;
+
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+
+            backdrop-filter: blur(10px);
+
+        }
+
+
+
+        .todo-list {
+
+            list-style: none;
+
+        }
+
+
+
+        .todo-list li {
+
+            margin-bottom: 20px;
+
+            position: relative;
+
+        }
+
+
+
+        /* Hide the actual checkbox */
+
+        .todo-list input[type="checkbox"] {
+
+            position: absolute;
+
+            opacity: 0;
+
+            cursor: pointer;
+
+            height: 0;
+
+            width: 0;
+
+        }
+
+
+
+        /* The Text Label */
+
+        .todo-list label {
+
+            display: block;
+
+            position: relative;
+
+            padding-left: 45px; /* Space for the heart */
+
+            font-size: 1.1rem;
+
+            color: var(--text-dark);
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+            user-select: none; /* Prevents highlighting text while clicking */
+
+        }
+
+
+
+        /* The Custom Heart (Unchecked) */
+
+        .todo-list label::before {
+
+            content: '\f004'; /* FontAwesome Heart Unicode */
+
+            font-family: 'Font Awesome 6 Free';
+
+            font-weight: 400; /* Regular outline */
+
+            position: absolute;
+
+            left: 0;
+
+            top: 0;
+
+            font-size: 1.6rem;
+
+            color: var(--text-dark);
+
+            transition: 0.3s;
+
+        }
+
+
+
+        /* Hover Effect */
+
+        .todo-list label:hover::before {
+
+            transform: scale(1.1);
+
+            color: var(--accent);
+
+        }
+
+
+
+        /* --- CHECKED STATE (The Magic) --- */
+
+        
+
+        /* Change icon to Solid Heart */
+
+        .todo-list input[type="checkbox"]:checked + label::before {
+
+            font-weight: 900; /* Solid style */
+
+            color: #ff4757; /* Bright Red/Pink */
+
+            animation: heartBeat 0.4s ease-in-out forwards;
+
+        }
+
+
+
+        /* Strikethrough text when checked */
+
+        .todo-list input[type="checkbox"]:checked + label {
+
+            color: var(--accent);
+
+            text-decoration: line-through;
+
+            opacity: 0.7;
+
+        }
+
+
+
+        /* The Heart Beat Animation */
+
+        @keyframes heartBeat {
+
+            0% { transform: scale(1); }
+
+            50% { transform: scale(1.4); }
+
+            100% { transform: scale(1); }
+
+        }
+
+
+
+        /* Mobile Adjustments */
+
+        @media (max-width: 768px) {
+
+            .todo-container {
+
+                padding: 25px;
+
+                width: 90%;
+
+            }
+
+            .todo-list label {
+
+                font-size: 1rem;
+
+            }
+
+        }
+
+
+
+        /* --- UNBREAKABLE SLIDER SECTION --- */
+
+        #fun-section {
+
+            text-align: center;
+
+        }
+
+
+
+        .slider-card {
+
+            background: var(--glass);
+
+            padding: 40px;
+
+            border-radius: 20px;
+
+            border: 1px solid var(--glass-border);
+
+            display: inline-block;
+
+            width: 90%;
+
+            max-width: 500px;
+
+            backdrop-filter: blur(10px);
+
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+
+        }
+
+
+
+        .slider-title {
+
+            font-size: 1.3rem;
+
+            margin-bottom: 30px;
+
+            font-weight: 600;
+
+            color: var(--text-dark);
+
+        }
+
+
+
+        .slider-wrapper {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+
+        .slider-label {
+
+            font-weight: bold;
+
+            color: var(--accent);
+
+            font-size: 1.2rem;
+
+        }
+
+
+
+        /* Custom Range Slider Styling */
+
+        .love-slider {
+
+            -webkit-appearance: none;
+
+            width: 100%;
+
+            height: 10px;
+
+            background: rgba(0,0,0,0.1);
+
+            border-radius: 10px;
+
+            outline: none;
+
+            transition: 0.2s;
+
+        }
+
+
+
+        /* The Thumb (Handle) */
+
+        .love-slider::-webkit-slider-thumb {
+
+            -webkit-appearance: none;
+
+            appearance: none;
+
+            width: 25px;
+
+            height: 25px;
+
+            background: var(--accent);
+
+            border-radius: 50%;
+
+            cursor: pointer;
+
+            box-shadow: 0 0 10px rgba(219, 165, 166, 0.8);
+
+            transition: 0.2s;
+
+        }
+
+
+
+        .love-slider::-webkit-slider-thumb:hover {
+
+            transform: scale(1.2);
+
+        }
+
+
+
+        /* Dark mode adjustment */
+
+        body.dark-mode .love-slider {
+
+            background: rgba(255,255,255,0.1);
+
+        }
+
+
+
+        /* Emoji and Text Feedback */
+
+        .slider-emoji {
+
+            font-size: 3rem;
+
+            margin-bottom: 10px;
+
+            height: 60px; /* Fixed height to prevent jumping */
+
+            animation: bounce 1s infinite;
+
+        }
+
+
+
+        .slider-text {
+
+            font-size: 0.9rem;
+
+            opacity: 0.7;
+
+            min-height: 1.5em;
+
+        }
+
+        /* --- STATS DASHBOARD SECTION --- */
+
+        #stats-section {
+
+            background: linear-gradient(to bottom, transparent, rgba(219, 165, 166, 0.1));
+
+        }
+
+
+
+        .stats-container {
+
+            display: flex;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 20px;
+
+            max-width: 1000px;
+
+            padding: 20px;
+
+        }
+
+
+
+        .stat-card {
+
+            background: var(--glass);
+
+            border: 1px solid var(--glass-border);
+
+            width: 200px;
+
+            padding: 30px 20px;
+
+            border-radius: 20px;
+
+            text-align: center;
+
+            backdrop-filter: blur(10px);
+
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+
+            transition: 0.3s;
+
+        }
+
+
+
+        .stat-card:hover {
+
+            transform: translateY(-10px);
+
+            background: rgba(255, 255, 255, 0.95);
+
+            box-shadow: 0 20px 40px rgba(219, 165, 166, 0.2);
+
+        }
+
+
+
+        .stat-card .icon {
+
+            font-size: 2.5rem;
+
+            color: var(--accent);
+
+            margin-bottom: 15px;
+
+        }
+
+
+
+        .stat-card h3 {
+
+            font-family: 'Montserrat', sans-serif;
+
+            font-size: 2.5rem;
+
+            font-weight: 700;
+
+            color: var(--text-dark);
+
+            margin-bottom: 5px;
+
+        }
+
+
+
+        .stat-card p {
+
+            font-size: 0.9rem;
+
+            color: var(--text-dark);
+
+            opacity: 0.7;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+        }
+
+
+
+        /* Mobile Fix */
+
+        @media (max-width: 768px) {
+
+            .stat-card {
+
+                width: 45%; /* Two cards per row on mobile */
+
+            }
+
+            .stat-card h3 {
+
+                font-size: 2rem;
+
+            }
+
+        }
+
+
+
+        /* --- DREAM TICKET SECTION --- */
+
+        #dream-section {
+
+            padding-bottom: 80px;
+
+        }
+
+
+
+        .ticket-container {
+
+            perspective: 1000px;
+
+            display: flex;
+
+            justify-content: center;
+
+            padding: 20px;
+
+        }
+
+
+
+        .ticket {
+
+            display: flex;
+
+            width: 100%;
+
+            max-width: 750px;
+
+            background: white;
+
+            border-radius: 20px;
+
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+
+            overflow: hidden;
+
+            transition: transform 0.5s ease;
+
+            position: relative;
+
+        }
+
+
+
+        /* Hover Effect: 3D Tilt */
+
+        .ticket:hover {
+
+            transform: rotateX(5deg) rotateY(5deg) scale(1.02);
+
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+
+        }
+
+
+
+        /* --- LEFT SIDE (Main) --- */
+
+        .ticket-left {
+
+            flex: 2;
+
+            padding: 30px;
+
+            border-right: 2px dashed #ddd; /* The tear-off line */
+
+            position: relative;
+
+        }
+
+
+
+        /* Cutout circles for realism */
+
+        .ticket-left::before, .ticket-left::after {
+
+            content: '';
+
+            position: absolute;
+
+            right: -10px;
+
+            width: 20px;
+
+            height: 20px;
+
+            background: var(--bg); /* Matches page background */
+
+            border-radius: 50%;
+
+        }
+
+        .ticket-left::before { top: -10px; }
+
+        .ticket-left::after { bottom: -10px; }
+
+
+
+        .ticket-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            color: var(--accent);
+
+            font-weight: bold;
+
+            letter-spacing: 2px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+
+        .route {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 30px;
+
+        }
+
+
+
+        .city h3 {
+
+            font-size: 2.5rem;
+
+            font-family: 'Montserrat', sans-serif;
+
+            font-weight: 800;
+
+            color: var(--text-dark);
+
+            margin: 0;
+
+        }
+
+
+
+        .city p {
+
+            font-size: 0.9rem;
+
+            opacity: 0.6;
+
+            text-transform: uppercase;
+
+        }
+
+
+
+        .plane-icon {
+
+            flex: 1;
+
+            text-align: center;
+
+            color: var(--accent);
+
+            position: relative;
+
+            margin: 0 20px;
+
+        }
+
+
+
+        .plane-icon i {
+
+            font-size: 1.5rem;
+
+            background: white;
+
+            padding: 0 10px;
+
+            position: relative;
+
+            z-index: 1;
+
+        }
+
+
+
+        .dotted-line {
+
+            position: absolute;
+
+            top: 50%;
+
+            left: 0;
+
+            width: 100%;
+
+            border-bottom: 2px dotted #ddd;
+
+            z-index: 0;
+
+        }
+
+
+
+        .ticket-details {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            background: #f9f9f9;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+        }
+
+
+
+        .detail-item {
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+
+
+        .detail-item span {
+
+            font-size: 0.7rem;
+
+            color: #888;
+
+            letter-spacing: 1px;
+
+        }
+
+
+
+        .detail-item strong {
+
+            color: var(--text-dark);
+
+            font-size: 0.9rem;
+
+        }
+
+
+
+        /* --- RIGHT SIDE (Stub) --- */
+
+        .ticket-right {
+
+            flex: 1;
+
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+
+            color: white;
+
+            padding: 30px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            position: relative;
+
+        }
+
+
+
+        .nurse-icon {
+
+            font-size: 2.5rem;
+
+            margin-bottom: 15px;
+
+            color: white;
+
+        }
+
+
+
+        .confirmed {
+
+            background: white;
+
+            color: var(--accent);
+
+            padding: 5px 15px;
+
+            border-radius: 5px;
+
+            font-size: 1.2rem;
+
+            transform: rotate(-5deg);
+
+            border: 2px solid white;
+
+            margin: 10px 0;
+
+            display: inline-block;
+
+        }
+
+
+
+        .barcode {
+
+            font-family: 'Libre Barcode 39', cursive; /* Fallback if no font */
+
+            font-size: 1.5rem;
+
+            letter-spacing: 2px;
+
+            opacity: 0.7;
+
+            margin: 15px 0;
+
+        }
+
+        
+
+        .cheer-text {
+
+            font-size: 0.8rem;
+
+            opacity: 0.9;
+
+            line-height: 1.4;
+
+        }
+
+
+
+        /* --- MOBILE RESPONSIVE TICKET --- */
+
+        @media (max-width: 768px) {
+
+            .ticket {
+
+                flex-direction: column;
+
+            }
+
+
+
+            .ticket-left {
+
+                border-right: none;
+
+                border-bottom: 2px dashed #ddd;
+
+            }
+
+
+
+            .ticket-left::before { top: auto; bottom: -10px; left: -10px; }
+
+            .ticket-left::after { top: auto; bottom: -10px; right: -10px; left: auto;}
+
+            
+
+            .ticket-right {
+
+                padding: 20px;
+
+            }
+
+
+
+            .city h3 {
+
+                font-size: 1.8rem;
+
+            }
+
+        }
+
+    </style>
+
 </head>
+
+
 
 <body>
 
+
+
     <nav>
+
         <div class="logo">
+
             <i class="fas fa-heart"></i> Priyanshi
+
         </div>
+
+
 
         <div class="hamburger" onclick="toggleMenu()">
+
             <i class="fas fa-bars"></i>
+
         </div>
+
+
 
         <div class="nav-links" id="navLinks">
+
             <a href="#home">Home</a>
+
             <a href="#timeline">Journey</a>
+
             <a href="#gallery">Gallery</a>
+
             <a href="#open-when">Comfort</a>
+
             <a href="#music-section">Melody</a>
+
             <a href="#dream-section">Dreams</a>
+
         </div>
+
     </nav>
 
+
+
     <section id="home">
+
         <div class="kb-slideshow">
+
             <div class="kb-slide" style="background-image: url('image1.jpg');"></div>
+
             <div class="kb-slide" style="background-image: url('image2.jpg');"></div>
+
             <div class="kb-slide" style="background-image: url('image3.jpg');"></div>
+
             <div class="kb-slide" style="background-image: url('image4.jpg');"></div>
+
             <div class="kb-slide" style="background-image: url('image8.jpg');"></div>
+
         </div>
+
+
 
         <div class="overlay"></div>
 
+
+
         <div class="home-content">
+
             <h1>Hey Beautiful,</h1>
+
             <p style="letter-spacing: 3px; text-transform: uppercase;">Welcome to your digital garden</p>
+
         </div>
+
     </section>
+
+
 
     <section id="about">
+
         <h2>About You</h2>
+
         <div class="about-container">
+
             <p>
+
                 "Life often feels like chaos—a loop of random errors and noise. But you? You are the perfect algorithm.
+
                 You bring order and logic to my day just by smiling.
+
                 <br><br>
+
                 I built this little digital corner because a simple photo gallery wasn't enough to hold your elegance. I
+
                 wanted to create a space that is as unique as you are. Keep shining, because you light up this world
+
                 effortlessly."
+
             </p>
+
         </div>
+
     </section>
+
+
 
     <section id="timeline">
+
         <h2>Moments That Matter</h2>
+
         <div class="timeline-container">
+
             
+
             <div class="timeline-item left">
+
                 <div class="timeline-content">
+
                     <span class="date">The Beginning</span>
+
                     <h3>The First Time I Saw You</h3>
+
                     <p>I don't know if you noticed, but time actually slowed down for a second. You were wearing that white-red saree.</p>
+
                 </div>
+
             </div>
+
+
 
             <div class="timeline-item right">
+
                 <div class="timeline-content">
+
                     <span class="date">A Random Tuesday</span>
+
                     <h3>That One Chat</h3>
+
                     <p>We were just talking about nothing important, but the way you laughed at my terrible joke made my whole week.</p>
+
                 </div>
+
             </div>
+
+
 
             <div class="timeline-item left">
+
                 <div class="timeline-content">
+
                     <span class="date">Right Now</span>
+
                     <h3>Creating This</h3>
+
                     <p>I sat down to write some code, and I realized every line was just me trying to find a way to make you smile.</p>
+
                 </div>
+
             </div>
 
+
+
         </div>
+
     </section>
+
+
 
     <section id="notes">
+
         <h2>Little Reminders</h2>
+
         <div class="notes-container">
+
             
+
             <div class="note yellow">
+
                 <i class="fas fa-thumbtack pin"></i>
+
                 <p>Reminder: You look absolutely stunning in traditional attire. Saree = 💯.</p>
+
             </div>
+
+
 
             <div class="note pink">
+
                 <i class="fas fa-heart pin-tape"></i>
+
                 <p>Error 404: Flaws not found. <br> System indicates you are perfect.</p>
+
             </div>
+
+
 
             <div class="note blue">
+
                 <i class="fas fa-thumbtack pin"></i>
+
                 <p>I hope today treats you as kindly as you treat everyone else.</p>
+
             </div>
+
+
 
             <div class="note green">
+
                 <i class="fas fa-star pin-tape"></i>
+
                 <p>Just in case no one told you today: You are doing great. Keep shining! ✨</p>
+
             </div>
 
+
+
         </div>
+
     </section>
+
+
 
     <section id="letter-section">
+
         <h2>One Last Thing...</h2>
+
         
+
         <div class="letter-container" onclick="openLetter()">
+
             <div class="envelope">
+
                 <div class="envelope-flap"></div>
+
                 <div class="envelope-paper">
+
                     <div class="letter-text">
+
                         <p><strong>Hey You,</strong></p>
+
                         <p>If I could give you one thing in life, I would give you the ability to see yourself through my eyes.</p>
+
                         <p>Only then would you realize how special you truly are.</p>
+
                         <p class="signature">- Koustav</p>
+
                     </div>
+
                 </div>
+
                 <div class="envelope-front"></div>
+
             </div>
+
             <div class="instruction-text">Tap to Open</div>
+
         </div>
+
     </section>
+
+
+
 
 
     <section id="todo-section">
+
         <h2>My Daily Goals</h2>
+
         <div class="todo-container">
+
             <ul class="todo-list">
+
                 
+
                 <li>
+
                     <input type="checkbox" id="goal1">
+
                     <label for="goal1">Make you smile at least once today</label>
+
                 </li>
 
+
+
                 <li>
+
                     <input type="checkbox" id="goal2">
+
                     <label for="goal2">Be there whenever you need to vent</label>
+
                 </li>
 
+
+
                 <li>
+
                     <input type="checkbox" id="goal3">
+
                     <label for="goal3">Remind you that you are beautiful</label>
+
                 </li>
 
+
+
                 <li>
+
                     <input type="checkbox" id="goal4">
+
                     <label for="goal4">Support your wildest dreams</label>
+
                 </li>
 
+
+
                 <li>
+
                     <input type="checkbox" id="goal5">
+
                     <label for="goal5">Never let you feel like you're alone</label>
+
                 </li>
+
+
 
             </ul>
+
         </div>
+
     </section>
+
+
 
     <section id="fun-section">
+
         <h2>A Little Experiment</h2>
+
         <div class="slider-card">
+
             <p class="slider-title">How much I adore you:</p>
+
             
+
             <div class="slider-wrapper">
+
                 <span class="slider-label">0%</span>
+
                 <input type="range" min="0" max="100" value="100" class="love-slider" id="loveSlider">
+
                 <span class="slider-label">∞</span>
+
             </div>
+
+
 
             <div class="slider-emoji" id="sliderEmoji">💖</div>
+
             <p class="slider-text" id="sliderText">Try to lower it... I dare you.</p>
+
         </div>
+
     </section>
+
+
 
     <section id="stats-section">
+
         <h2>Your Impact Stats</h2>
+
         <div class="stats-container">
+
             
+
             <div class="stat-card">
+
                 <i class="fas fa-bolt icon"></i>
+
                 <h3 class="counter" data-target="1000">0</h3>
+
                 <p>Volts of Spark</p>
+
             </div>
 
+
+
             <div class="stat-card">
+
                 <i class="fas fa-heartbeat icon"></i>
+
                 <h3 class="counter" data-target="120">0</h3>
+
                 <p>Heart Rate (BPM)</p>
+
             </div>
 
+
+
             <div class="stat-card">
+
                 <i class="fas fa-crown icon"></i>
+
                 <h3><span class="counter" data-target="100">0</span>%</h3>
+
                 <p>Arguments Won By You</p>
+
             </div>
 
+
+
             <div class="stat-card">
+
                 <i class="fas fa-infinity icon"></i>
+
                 <h3>∞</h3>
+
                 <p>Smiles Caused</p>
+
             </div>
+
+
 
         </div>
+
     </section>
+
+
 
     <section id="open-when">
+
         <h2>Open When...</h2>
+
         <div class="cards-wrapper">
+
             
+
             <div class="flip-card" onclick="this.classList.toggle('flipped')">
+
                 <div class="flip-card-inner">
+
                     <div class="flip-card-front">
+
                         <i class="fas fa-cloud-rain"></i>
+
                         <h3>You Feel Stressed</h3>
+
                         <p class="tap-hint">(Tap to flip)</p>
+
                     </div>
+
                     <div class="flip-card-back">
+
                         <p>"Take a deep breath. You’ve handled difficult things before, and you’ll handle this too. I believe in you."</p>
+
                     </div>
+
                 </div>
+
             </div>
 
+
+
             <div class="flip-card" onclick="this.classList.toggle('flipped')">
+
                 <div class="flip-card-inner">
+
                     <div class="flip-card-front">
+
                         <i class="fas fa-sun"></i>
+
                         <h3>You Are Happy</h3>
+
                         <p class="tap-hint">(Tap to flip)</p>
+
                     </div>
+
                     <div class="flip-card-back">
+
                         <p>"I hope you freeze this moment. Your happiness is contagious, and you deserve every bit of it!"</p>
+
                     </div>
+
                 </div>
+
             </div>
 
+
+
             <div class="flip-card" onclick="this.classList.toggle('flipped')">
+
                 <div class="flip-card-inner">
+
                     <div class="flip-card-front">
+
                         <i class="fas fa-moon"></i>
+
                         <h3>You Can't Sleep</h3>
+
                         <p class="tap-hint">(Tap to flip)</p>
+
                     </div>
+
                     <div class="flip-card-back">
+
                         <p>"Stop scrolling! Close your eyes, think of 3 nice things that happened today. Or... just text me."</p>
+
                     </div>
+
                 </div>
+
             </div>
+
+
 
         </div>
+
     </section>
+
+
 
     <section id="gallery">
+
         <h2>Your Memories</h2>
 
+
+
         <div class="swiper mySwiper">
+
             <div class="swiper-wrapper">
+
                 <div class="swiper-slide">
+
                     <img src="image1.jpg" alt="Her">
+
                     <div class="slide-overlay">
+
                         <h3>Grace in Silence</h3>
+
                         <p>Some beauty doesn’t ask to be seen — it’s simply felt.</p>
+
                     </div>
+
                 </div>
 
+
+
                 <div class="swiper-slide">
+
                     <img src="image2.jpg" alt="Her">
+
                     <div class="slide-overlay">
+
                         <h3>Eyes That Speak</h3>
+
                         <p>In your eyes, even silence feels meaningful</p>
+
                     </div>
+
                 </div>
 
+
+
                 <div class="swiper-slide">
+
                     <img src="image3.jpg" alt="Her">
+
                     <div class="slide-overlay">
+
                         <h3>Timeless Charm</h3>
+
                         <p>Tradition looks even more beautiful when you wear it.</p>
+
                     </div>
+
                 </div>
 
+
+
                 <div class="swiper-slide">
+
                     <img src="image4.jpg" alt="Her">
+
                     <div class="slide-overlay">
+
                         <h3>Quiet Devotion</h3>
+
                         <p>There’s poetry in the way you look down and smile.</p>
+
                     </div>
+
                 </div>
 
+
+
                 <div class="swiper-slide">
+
                     <img src="image5.jpg" alt="Her">
+
                     <div class="slide-overlay">
+
                         <h3>Lost in Thoughts</h3>
+
                         <p>Some moments feel calm… because you exist in them.</p>
+
                     </div>
+
                 </div>
 
+
+
                 <div class="swiper-slide">
+
                     <img src="image6.jpg" alt="Her">
+
                     <div class="slide-overlay">
+
                         <h3>Unsaid Stories</h3>
+
                         <p>I wonder what thoughts make your eyes wander like that</p>
+
                     </div>
+
                 </div>
 
+
+
                 <div class="swiper-slide">
+
                     <img src="image7.jpg" alt="Her">
+
                     <div class="slide-overlay">
+
                         <h3>Just You</h3>
+
                         <p>No filters. No words. Just you — and that’s enough.</p>
+
                     </div>
+
                 </div>
 
+
+
                 <div class="swiper-slide">
+
                     <img src="image8.jpg" alt="Her">
+
                     <div class="slide-overlay">
+
                         <h3>Effortless Grace</h3>
+
                         <p>You make looking beautiful seem so easy.</p>
+
                     </div>
+
                 </div>
 
+
+
                 <div class="swiper-slide">
+
                     <img src="image9.jpg" alt="Her">
+
                     <div class="slide-overlay">
+
                         <h3>Lady in Red</h3>
+
                         <p>You define what radiance truly means.</p>
+
                     </div>
+
                 </div>
 
+
+
                 <div class="swiper-slide">
+
                     <img src="image10.jpg" alt="Her">
+
                     <div class="slide-overlay">
+
                         <h3>Perfect Angle</h3>
+
                         <p>You are beautiful from every side, even when you aren't trying.</p>
+
                     </div>
+
                 </div>
 
+
+
                 <div class="swiper-slide">
+
                     <img src="image11.jpg" alt="Her">
+
                     <div class="slide-overlay">
+
                         <h3>Captivating</h3>
+
                         <p>Just one look from you is enough to make my day.</p>
+
                     </div>
+
                 </div>
 
+
+
                 <div class="swiper-slide">
+
                     <img src="image12.jpg" alt="Her">
+
                     <div class="slide-overlay">
+
                         <h3>Daydreamer</h3>
+
                         <p>I wonder what you're thinking about... I hope it's something beautiful.</p>
+
                     </div>
+
                 </div>
 
+
+
                 <div class="swiper-slide">
+
                     <img src="image13.jpg" alt="Her">
+
                     <div class="slide-overlay">
+
                         <h3>Mesmerizing</h3>
+
                         <p>I could get lost in your eyes and never want to be found.</p>
+
                     </div>
+
                 </div>
 
+
+
                 <div class="swiper-slide">
+
                     <img src="image14.jpg" alt="Her">
+
                     <div class="slide-overlay">
+
                         <h3>That Spark</h3>
+
                         <p>Never lose that mischievous spark in your eyes.</p>
+
                     </div>
+
                 </div>
 
+
+
                 <div class="swiper-slide">
+
                     <img src="image15.jpg" alt="Her">
+
                     <div class="slide-overlay">
+
                         <h3>Just You</h3>
+
                         <p>The closer I look, the more reasons I find to adore you.</p>
+
                     </div>
+
                 </div>
 
+
+
                 <div class="swiper-slide">
+
                     <img src="image16.jpg" alt="Her">
+
                     <div class="slide-overlay">
+
                         <h3>Shades of Beauty</h3>
+
                         <p>Hiding those pretty eyes, but that smile gives it away.</p>
+
                     </div>
+
                 </div>
 
+
+
                 <div class="swiper-slide">
+
                     <img src="image17.jpg" alt="Her">
+
                     <div class="slide-overlay">
+
                         <h3>The Glow</h3>
+
                         <p>The lantern lights up the night, but you light up my world.</p>
+
                     </div>
+
                 </div>
 
+
+
                 <div class="swiper-slide">
+
                     <img src="image18.jpg" alt="Her">
+
                     <div class="slide-overlay">
+
                         <h3>Serenity</h3>
+
                         <p>A quiet moment of beauty that speaks volumes.</p>
+
                     </div>
+
                 </div>
 
+
+
                 <div class="swiper-slide">
+
                     <img src="image20.jpg" alt="Her">
+
                     <div class="slide-overlay">
+
                         <h3>Life in Color</h3>
+
                         <p>You shine brighter than all the flowers behind you.</p>
+
                     </div>
+
                 </div>
 
+
+
                 <div class="swiper-slide">
+
                     <img src="image21.jpg" alt="Her">
+
                     <div class="slide-overlay">
+
                         <h3>Natural Beauty</h3>
+
                         <p>Surrounded by nature, but you are the prettiest view here.</p>
+
                     </div>
+
                 </div>
 
+
+
                 <div class="swiper-slide">
+
                     <img src="image22.jpg" alt="Her">
+
                     <div class="slide-overlay">
+
                         <h3>Chic & Confident</h3>
+
                         <p>You’ve got a style that is all your own.</p>
+
                     </div>
+
                 </div>
 
+
+
                 <div class="swiper-slide">
+
                     <img src="image23.jpg" alt="Her">
+
                     <div class="slide-overlay">
+
                         <h3>Caught in the Moment</h3>
+
                         <p>No pose needed. Just natural beauty.</p>
+
                     </div>
+
                 </div>
 
+
+
                 <div class="swiper-slide">
+
                     <img src="image24.jpg" alt="Her">
+
                     <div class="slide-overlay">
+
                         <h3>Perfection</h3>
+
                         <p>The most beautiful view is right here.</p>
+
                     </div>
+
                 </div>
 
+
+
                 <div class="swiper-slide">
+
                     <img src="image25.jpg" alt="Her">
+
                     <div class="slide-overlay">
+
                         <h3>Divine Beauty</h3>
+
                         <p>You look just as captivating as the celebration around you.</p>
+
                     </div>
+
                 </div>
+
+
 
             </div>
+
             <div class="swiper-pagination"></div>
+
         </div>
+
     </section>
+
+
 
     <section id="traits">
+
         <h2>Why You?</h2>
+
         <div class="traits-container">
 
+
+
             <div class="trait-card">
+
                 <div class="icon-box">
+
                     <i class="fas fa-smile-beam"></i>
+
                 </div>
+
                 <h3>Your Smile</h3>
+
                 <p>It’s not just a curve on your face; it’s a signal that makes everything around you feel a little less
+
                     chaotic and a lot more bright.</p>
+
             </div>
 
+
+
             <div class="trait-card">
+
                 <div class="icon-box">
+
                     <i class="fas fa-brain"></i>
+
                 </div>
+
                 <h3>Your Mind</h3>
+
                 <p>The way you view the world is unique. Every conversation with you feels like unlocking a new
+
                     perspective I never knew existed.</p>
+
             </div>
 
+
+
             <div class="trait-card">
+
                 <div class="icon-box">
+
                     <i class="fas fa-star"></i>
+
                 </div>
+
                 <h3>Your Vibe</h3>
+
                 <p>You carry a grace that doesn't need to be loud to be noticed. It’s an energy that is simply...
+
                     magnetic.</p>
+
             </div>
+
+
 
         </div>
+
     </section>
+
+
 
     <section id="dream-section">
+
         <h2>Your Next Destination</h2>
+
         <div class="ticket-container">
+
             <div class="ticket">
+
                 
+
                 <div class="ticket-left">
+
                     <div class="ticket-header">
+
                         <span>DREAM AIRLINES</span>
+
                         <i class="fas fa-plane"></i>
+
                     </div>
+
                     
+
                     <div class="route">
+
                         <div class="city">
+
                             <h3>NOW</h3>
+
                             <p>Hard Work</p>
+
                         </div>
+
                         <div class="plane-icon">
+
                             <i class="fas fa-plane-departure"></i>
+
                             <div class="dotted-line"></div>
+
                         </div>
+
                         <div class="city">
+
                             <h3>LDN</h3>
+
                             <p>London, UK</p>
+
                         </div>
+
                     </div>
+
+
 
                     <div class="ticket-details">
+
                         <div class="detail-item">
+
                             <span>PASSENGER</span>
+
                             <strong>Future Nurse Priyanshi</strong>
+
                         </div>
+
                         <div class="detail-item">
+
                             <span>CLASS</span>
+
                             <strong>First Class</strong>
+
                         </div>
+
                         <div class="detail-item">
+
                             <span>DATE</span>
+
                             <strong>Someday Soon</strong>
+
                         </div>
+
                     </div>
+
                 </div>
+
+
 
                 <div class="ticket-right">
+
                     <div class="stub-content">
+
                         <i class="fas fa-user-nurse nurse-icon"></i>
+
                         <p>Ticket Status:</p>
+
                         <h3 class="confirmed">CONFIRMED</h3>
+
                         <div class="barcode">
+
                             |||| ||| ||||| || ||||
+
                         </div>
+
                         <p class="cheer-text">The world is waiting for a nurse like you.</p>
+
                     </div>
+
                 </div>
 
+
+
             </div>
+
         </div>
+
     </section>
+
+
 
     <section id="music-section">
+
         <h2>Tracks For You</h2>
 
+
+
         <div class="music-wrapper">
+
             <div class="player-main">
+
                 <div class="disk-container">
+
                     <img src="image1.jpg" alt="Album Art" class="disk" id="currAlbum">
+
                 </div>
+
+
 
                 <div class="song-info">
+
                     <h3 id="currTitle">Song Title</h3>
+
                     <p id="currArtist">Artist Name</p>
+
                 </div>
+
+
 
                 <div class="progress-container">
+
                     <span id="currTime">0:00</span>
+
                     <div class="progress-bar" id="progressBar" onclick="setProgress(event)">
+
                         <div class="progress-fill" id="progressFill"></div>
+
                     </div>
+
                     <span id="durTime">0:00</span>
+
                 </div>
+
+
 
                 <div class="controls">
+
                     <button class="btn-control" onclick="prevSong()"><i class="fas fa-backward"></i></button>
+
                     <button class="btn-control btn-play" onclick="togglePlay()" id="playBtn"><i
+
                             class="fas fa-play"></i></button>
+
                     <button class="btn-control" onclick="nextSong()"><i class="fas fa-forward"></i></button>
+
                 </div>
+
+
 
                 <div class="volume-container">
+
                     <i class="fas fa-volume-down"></i>
+
                     <input type="range" min="0" max="1" step="0.05" value="0.8" class="volume-slider"
+
                         onchange="setVolume(this.value)">
+
                     <i class="fas fa-volume-up"></i>
+
                 </div>
+
             </div>
+
+
 
             <div class="playlist-side" id="playlist">
+
                 <div class="playlist-header">Playlist</div>
+
             </div>
+
         </div>
+
+
 
         <audio id="audio" src=""></audio>
+
     </section>
 
+
+
     
+
     <footer>
+
         <p>Code is usually just logic and math. But this project? This one was written entirely with heart.</p>
+
         <div class="footer-signature">
+
             ~ Newton
+
         </div>
+
     </footer>
 
+
+
     <div class="theme-toggle" onclick="toggleTheme()">
+
         <i class="fas fa-moon"></i>
+
     </div>
 
+
+
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    
-    <script src="script.js"></script>
+
+    <script>
+
+        // --- MOBILE MENU LOGIC ---
+
+        function toggleMenu() {
+
+            const navLinks = document.getElementById('navLinks');
+
+            const hamburger = document.querySelector('.hamburger i');
+
+            navLinks.classList.toggle('active');
+
+
+
+            if (navLinks.classList.contains('active')) {
+
+                hamburger.classList.remove('fa-bars');
+
+                hamburger.classList.add('fa-times');
+
+            } else {
+
+                hamburger.classList.remove('fa-times');
+
+                hamburger.classList.add('fa-bars');
+
+            }
+
+        }
+
+
+
+        // Auto-close menu when a link is clicked
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+
+            link.addEventListener('click', () => {
+
+                const navLinks = document.getElementById('navLinks');
+
+                const hamburger = document.querySelector('.hamburger i');
+
+
+
+                if (navLinks.classList.contains('active')) {
+
+                    navLinks.classList.remove('active');
+
+                    hamburger.classList.remove('fa-times');
+
+                    hamburger.classList.add('fa-bars');
+
+                }
+
+            });
+
+        });
+
+
+
+        // --- SWIPER JS ---
+
+        var swiper = new Swiper(".mySwiper", {
+
+            effect: "coverflow",
+
+            grabCursor: true,
+
+            centeredSlides: true,
+
+            slidesPerView: "auto",
+
+            coverflowEffect: {
+
+                rotate: 35,
+
+                stretch: 0,
+
+                depth: 100,
+
+                modifier: 1,
+
+                slideShadows: true,
+
+            },
+
+            pagination: {
+
+                el: ".swiper-pagination",
+
+            },
+
+            autoplay: {
+
+                delay: 3000,
+
+                disableOnInteraction: false,
+
+            }
+
+        });
+
+
+
+        // --- THEME TOGGLE JS ---
+
+        function toggleTheme() {
+
+            const body = document.body;
+
+            const icon = document.querySelector('.theme-toggle i');
+
+
+
+            body.classList.toggle('dark-mode');
+
+
+
+            if (body.classList.contains('dark-mode')) {
+
+                icon.classList.remove('fa-moon');
+
+                icon.classList.add('fa-sun');
+
+            } else {
+
+                icon.classList.remove('fa-sun');
+
+                icon.classList.add('fa-moon');
+
+            }
+
+        }
+
+
+
+        // --- MUSIC PLAYER JS ---
+
+        const songs = [
+
+            {
+
+                title: "Perfect",
+
+                artist: "Ed Sheeran",
+
+                img: "image1.jpg",
+
+                src: "songs/music1.mp3"
+
+            },
+
+            {
+
+                title: "Thousand Years",
+
+                artist: "Christina Perri",
+
+                img: "image2.jpg",
+
+                src: "songs/music2.mp3"
+
+            },
+
+            {
+
+                title: "All of Me",
+
+                artist: "John Legend",
+
+                img: "image3.jpg",
+
+                src: "songs/music3.mp3"
+
+            },
+
+            {
+
+                title: "Just The Way You Are",
+
+                artist: "Bruno Mars",
+
+                img: "image4.jpg",
+
+                src: "songs/music4.mp3"
+
+            },
+
+            {
+
+                title: "Thinking Out Loud",
+
+                artist: "Ed Sheeran",
+
+                img: "image5.jpg",
+
+                src: "songs/music5.mp3"
+
+            },
+
+            {
+
+                title: "At My Worst",
+
+                artist: "Pink Sweat$",
+
+                img: "image6.jpg",
+
+                src: "songs/music6.mp3"
+
+            },
+
+            {
+
+                title: "Until I Found You",
+
+                artist: "Stephen Sanchez",
+
+                img: "image7.jpg",
+
+                src: "songs/music7.mp3"
+
+            },
+
+            {
+
+                title: "Uden Jab Jab Julfe Teri",
+
+                artist: "Vicky Singh",
+
+                img: "image8.jpg",
+
+                src: "songs/music8.mp3"
+
+            },
+
+            {
+
+                title: "Sajna",
+
+                artist: "Ishpreet Singh",
+
+                img: "image9.jpg",
+
+                src: "songs/music9.mp3"
+
+            },
+
+            {
+
+                title: "Beqwarar Karke Hume Yu Na Jayiye",
+
+                artist: "Hemant Kumar",
+
+                img: "image10.jpg",
+
+                src: "songs/music10.mp3"
+
+            },
+
+            {
+
+                title: "Mere Samne Wali Khidki Mein",
+
+                artist: "kishor Kumar",
+
+                img: "image11.jpg",
+
+                src: "songs/music11.mp3"
+
+            },
+
+            {
+
+                title: "Hum Tere Pyar Mein Sara Alam",
+
+                artist: "Lata Mangeshkar",
+
+                img: "image12.jpg",
+
+                src: "songs/music12.mp3"
+
+            },
+
+            {
+
+                title: "Bargad",
+
+                artist: "Arpit Bala",
+
+                img: "image13.jpg",
+
+                src: "songs/music13.mp3"
+
+            },
+
+            {
+
+                title: "Tate Khoti Ki ?",
+
+                artist: "Arzeen",
+
+                img: "image14.jpg",
+
+                src: "songs/music14.mp3"
+
+            },
+
+            {
+
+                title: "Tujhe Yaad Kar Liya Ha",
+
+                artist: "Arijit Singh",
+
+                img: "image15.jpg",
+
+                src: "songs/music15.mp3"
+
+            },
+
+            {
+
+                title: "Zara Sa",
+
+                artist: "KK",
+
+                img: "image16.jpg",
+
+                src: "songs/music16.mp3"
+
+            },
+
+        ];
+
+
+
+        const audio = document.getElementById('audio');
+
+        const playBtn = document.getElementById('playBtn');
+
+        const playIcon = playBtn.querySelector('i');
+
+        const title = document.getElementById('currTitle');
+
+        const artist = document.getElementById('currArtist');
+
+        const cover = document.getElementById('currAlbum');
+
+        const progressFill = document.getElementById('progressFill');
+
+        const currTimeEl = document.getElementById('currTime');
+
+        const durTimeEl = document.getElementById('durTime');
+
+        const playlistDiv = document.getElementById('playlist');
+
+
+
+        let songIndex = 0;
+
+
+
+        function loadSong(song) {
+
+            title.innerText = song.title;
+
+            artist.innerText = song.artist;
+
+            cover.src = song.img;
+
+            audio.src = song.src;
+
+            renderPlaylist();
+
+        }
+
+
+
+        function playSong() {
+
+            document.querySelector('.music-wrapper').classList.add('play');
+
+            playIcon.classList.remove('fa-play');
+
+            playIcon.classList.add('fa-pause');
+
+            cover.classList.add('playing');
+
+            audio.play();
+
+            renderPlaylist();
+
+        }
+
+
+
+        function pauseSong() {
+
+            document.querySelector('.music-wrapper').classList.remove('play');
+
+            playIcon.classList.remove('fa-pause');
+
+            playIcon.classList.add('fa-play');
+
+            cover.classList.remove('playing');
+
+            audio.pause();
+
+            renderPlaylist();
+
+        }
+
+
+
+        function togglePlay() {
+
+            const isPlaying = playIcon.classList.contains('fa-pause');
+
+            if (isPlaying) {
+
+                pauseSong();
+
+            } else {
+
+                playSong();
+
+            }
+
+        }
+
+
+
+        function prevSong() {
+
+            songIndex--;
+
+            if (songIndex < 0) {
+
+                songIndex = songs.length - 1;
+
+            }
+
+            loadSong(songs[songIndex]);
+
+            playSong();
+
+        }
+
+
+
+        function nextSong() {
+
+            songIndex++;
+
+            if (songIndex > songs.length - 1) {
+
+                songIndex = 0;
+
+            }
+
+            loadSong(songs[songIndex]);
+
+            playSong();
+
+        }
+
+
+
+        function updateProgress(e) {
+
+            const { duration, currentTime } = e.srcElement;
+
+            const progressPercent = (currentTime / duration) * 100;
+
+            progressFill.style.width = `${progressPercent}%`;
+
+            const formatTime = (time) => {
+
+                const min = Math.floor(time / 60);
+
+                let sec = Math.floor(time % 60);
+
+                if (sec < 10) sec = `0${sec}`;
+
+                return `${min}:${sec}`;
+
+            };
+
+            if (duration) {
+
+                currTimeEl.innerText = formatTime(currentTime);
+
+                durTimeEl.innerText = formatTime(duration);
+
+            }
+
+        }
+
+
+
+        function setProgress(e) {
+
+            const width = document.getElementById('progressBar').clientWidth;
+
+            const clickX = e.offsetX;
+
+            const duration = audio.duration;
+
+            audio.currentTime = (clickX / width) * duration;
+
+        }
+
+
+
+        function setVolume(val) {
+
+            audio.volume = val;
+
+        }
+
+
+
+        function renderPlaylist() {
+
+            playlistDiv.innerHTML = '<div class="playlist-header">Playlist</div>';
+
+            songs.forEach((song, index) => {
+
+                const item = document.createElement('div');
+
+                item.classList.add('song-item');
+
+                if (index === songIndex) {
+
+                    item.classList.add('active');
+
+                }
+
+                item.innerHTML = `
+
+                    <img src="${song.img}" alt="Thumb">
+
+                    <div class="song-details">
+
+                        <span class="song-title">${song.title}</span>
+
+                        <span class="song-artist">${song.artist}</span>
+
+                    </div>
+
+                    <div class="music-bars-animation">
+
+                        <div class="bar"></div>
+
+                        <div class="bar"></div>
+
+                        <div class="bar"></div>
+
+                    </div>
+
+                `;
+
+                item.addEventListener('click', () => {
+
+                    songIndex = index;
+
+                    loadSong(songs[songIndex]);
+
+                    playSong();
+
+                });
+
+                playlistDiv.appendChild(item);
+
+            });
+
+        }
+
+
+
+        audio.addEventListener('timeupdate', updateProgress);
+
+        audio.addEventListener('ended', nextSong);
+
+        loadSong(songs[songIndex]);
+
+
+
+        // --- TIMELINE SCROLL ANIMATION ---
+
+        const timelineItems = document.querySelectorAll('.timeline-item');
+
+
+
+        const observerOptions = {
+
+            threshold: 0.2 // Trigger when 20% of the item is visible
+
+        };
+
+
+
+        const observer = new IntersectionObserver((entries) => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add('show');
+
+                }
+
+            });
+
+        }, observerOptions);
+
+
+
+        timelineItems.forEach(item => {
+
+            observer.observe(item);
+
+        });
+
+
+
+        function openLetter() {
+
+            const letter = document.querySelector('.letter-container');
+
+            const instruction = document.querySelector('.instruction-text');
+
+            
+
+            letter.classList.toggle('open');
+
+            
+
+            // Hide the "Tap to Open" text once opened
+
+            if (letter.classList.contains('open')) {
+
+                instruction.style.display = 'none';
+
+            }
+
+        }
+
+
+
+        // --- UNBREAKABLE SLIDER LOGIC ---
+
+        const slider = document.getElementById('loveSlider');
+
+        const emoji = document.getElementById('sliderEmoji');
+
+        const text = document.getElementById('sliderText');
+
+
+
+        slider.addEventListener('input', function() {
+
+            const val = this.value;
+
+
+
+            // Change emoji based on position
+
+            if (val > 80) {
+
+                emoji.innerText = "💖";
+
+                text.innerText = "That's more like it!";
+
+            } else if (val > 50) {
+
+                emoji.innerText = "🤨";
+
+                text.innerText = "Hey, what are you doing?";
+
+            } else if (val > 20) {
+
+                emoji.innerText = "🥺";
+
+                text.innerText = "You're breaking my heart...";
+
+            } else {
+
+                emoji.innerText = "😭";
+
+                text.innerText = "Why would you do this?!";
+
+            }
+
+        });
+
+
+
+        // The Magic Snap-Back Effect
+
+        slider.addEventListener('change', function() {
+
+            // When she lets go, snap back to 100
+
+            let currentVal = parseInt(this.value);
+
+            
+
+            if (currentVal < 100) {
+
+                let interval = setInterval(() => {
+
+                    currentVal += 2; // Speed of snap back
+
+                    this.value = currentVal;
+
+                    
+
+                    // Update visuals as it snaps back
+
+                    if (currentVal > 80) {
+
+                         emoji.innerText = "🥰";
+
+                         text.innerText = "Knew you couldn't resist!";
+
+                    }
+
+
+
+                    if (currentVal >= 100) {
+
+                        clearInterval(interval);
+
+                        this.value = 100;
+
+                    }
+
+                }, 5); // 5ms delay makes it smooth
+
+            }
+
+        });
+
+
+
+        // --- STATS COUNTER ANIMATION ---
+
+        const statsSection = document.getElementById('stats-section');
+
+        const counters = document.querySelectorAll('.counter');
+
+        let started = false; // Ensures animation only runs once
+
+
+
+        function startCounting() {
+
+            counters.forEach(counter => {
+
+                const target = +counter.getAttribute('data-target');
+
+                const speed = 200; // The lower the slower
+
+                
+
+                const updateCount = () => {
+
+                    const count = +counter.innerText;
+
+                    const inc = target / speed;
+
+
+
+                    if (count < target) {
+
+                        counter.innerText = Math.ceil(count + inc);
+
+                        setTimeout(updateCount, 20);
+
+                    } else {
+
+                        counter.innerText = target;
+
+                    }
+
+                };
+
+                updateCount();
+
+            });
+
+        }
+
+
+
+        // Trigger animation when scrolled into view
+
+        const statsObserver = new IntersectionObserver((entries) => {
+
+            if (entries[0].isIntersecting && !started) {
+
+                startCounting();
+
+                started = true;
+
+            }
+
+        });
+
+
+
+        statsObserver.observe(statsSection);
+
+    </script>
+
 </body>
+
+
 
 </html>
